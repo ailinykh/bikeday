@@ -10,6 +10,7 @@ router.get('/', (ctx) => {
       title: 'BikeDay 2021',
       description: 'Some descriptive text',
       text: 'A long text',
+      backgroundImageURL: 'https://via.placeholder.com/300x500.png/356629/fff',
       date: null
     },
     {
