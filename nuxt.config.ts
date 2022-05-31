@@ -21,4 +21,12 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
   },
+  css: ['~/assets/css/main.scss'],
+  meta: {
+    script: [
+      {
+        src: 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
+      },
+    ],
+  },
 })

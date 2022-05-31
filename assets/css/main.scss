@@ -1,0 +1,31 @@
+
+@import "fonts.scss";
+
+$font-family-sans-serif: MuseoSans, Helvetica Neue, Helvetica, Arial, sans-serif;
+
+.body-green {
+  background-color: #579547;
+  background-image: url(/static/bikes-on-green.png);
+}
+
+.body-gray {
+  background-color: #464d45;
+  background-image: url(/static/bikes-on-gray.png);
+  color: white;
+}
+
+$primary :#77cc62;
+$dark: #356629;
+
+// @import "node_modules/bootstrap/scss/functions";
+// @import "node_modules/bootstrap/scss/variables";
+// @import "node_modules/bootstrap/scss/utilities";
+
+// $utilities: map-merge(
+//   $utilities,
+//   (
+//   )
+// );
+
+// Finally load bootstrap
+@import "node_modules/bootstrap/scss/bootstrap";
