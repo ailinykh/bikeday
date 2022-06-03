@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  status    String
+  code      String
+  phone     String
+  token     String   @unique
+  ip        String
+  ua        String
+}
+
+model User {
+  id                    Int                    @id @default(autoincrement())
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @default(now())
+  status                String
+  phone                 String
+  firstName             String
+  lastName              String
+  gender                String
+  eventParticipations   EventParticipation[]
+  contestParticipations ContestParticipation[]
+}
+
+model Event {
+  id             Int                  @id @default(autoincrement())
+  createdAt      DateTime             @default(now())
+  title          String
+  date           DateTime
+  participations EventParticipation[]
+  contests       Contest[]
+}
+
+model EventParticipation {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   Int
+  bike      String
+  district  String
+  band      String
+  bandedBy  Int
+}
+
+model Contest {
+  id             Int                    @id @default(autoincrement())
+  createdAt      DateTime               @default(now())
+  title          String
+  status         String
+  kind           String
+  order          Int
+  event          Event                  @relation(fields: [eventId], references: [id])
+  eventId        Int
+  participations ContestParticipation[]
+}
+
+model ContestParticipation {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  contest   Contest  @relation(fields: [contestId], references: [id])
+  contestId Int
+  score     String
+}
