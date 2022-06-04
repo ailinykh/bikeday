@@ -11,13 +11,15 @@ interface SMSSendResponse {
 }
 
 const getSmsBalance = async () => {
+  const params = {
+    login: runtimeConfig.smscLogin,
+    psw: runtimeConfig.smscPassword,
+    charset: 'utf-8',
+    fmt: 3,
+  }
+  console.log('sms balance', params)
   return await $fetch<SMSBalanceResponse>('https://smsc.ru/sys/balance.php', {
-    params: {
-      login: runtimeConfig.smscLogin,
-      psw: runtimeConfig.smscPassword,
-      charset: 'utf-8',
-      fmt: 3,
-    },
+    params,
   })
 }
 
