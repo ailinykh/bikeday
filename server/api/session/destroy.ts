@@ -26,7 +26,7 @@ async function handle({ token }) {
     },
   })
   if (session) {
-    await prisma.session.update({
+    return await prisma.session.update({
       where: {
         id: session.id,
       },
@@ -35,4 +35,5 @@ async function handle({ token }) {
       },
     })
   }
+  return {}
 }
