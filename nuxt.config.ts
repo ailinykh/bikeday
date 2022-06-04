@@ -21,12 +21,19 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
   },
+  buildModules: ['@pinia/nuxt'],
   css: ['~/assets/css/main.scss'],
   meta: {
     script: [
       {
-        src: 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
+        src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js',
       },
     ],
+  },
+  runtimeConfig: {
+    smscLogin: process.env.SMSC_LOGIN,
+    smscPassword: process.env.SMSC_PASSWORD,
+    botToken: process.env.BOT_TOKEN,
+    botChatId: process.env.BOT_CHAT_ID,
   },
 })
