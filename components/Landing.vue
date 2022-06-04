@@ -13,6 +13,11 @@ const sponsors = [
       title: 'Администрация города Орла',
     },
     {
+      url: 'https://alfanank.ru/',
+      imageUrl: '/static/sponsors/alfa.png',
+      title: 'Альфа Банк',
+    },
+    {
       url: 'https://orel.tele2.ru/',
       imageUrl: '/static/sponsors/tele2.png',
       title: 'Tele2',
