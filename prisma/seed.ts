@@ -88,6 +88,8 @@ const contestData = [
   },
 ]
 
+const userData = [] //require('./users.json')
+
 async function main() {
   console.log(`Start seeding ...`)
   for (const e of eventData) {
@@ -108,6 +110,15 @@ async function main() {
         `Created contest #${contest.id} "${contest.title}" for ${event.title} event`
       )
     }
+  }
+  for (const u of userData) {
+    const user = await prisma.user.create({
+      data: {
+        ...u,
+        createdAt: new Date(u.createdAt),
+      },
+    })
+    console.log(`Created user #${user.id} "${user.firstName} ${user.lastName}"`)
   }
   console.log(`Seeding finished.`)
 }
