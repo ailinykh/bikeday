@@ -1,5 +1,3 @@
-import { sendMessage } from './telegram'
-
 interface SMSBalanceResponse {
   balance: string
 }
@@ -53,13 +51,7 @@ const sendSmsc = async ({ phone, text }) => {
       },
     }
   )
-
   console.log('💬 smsc', phone, 'id:', id, 'cnt:', cnt, 'error:', error)
-
-  if (id % 15 == 0) {
-    const { balance } = await getSmscBalance()
-    await sendMessage(`Баланс SMS составляет <b>${balance}</b> руб.`)
-  }
 
   return { cnt, error }
 }
