@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto'
 
 import { normalizePhone, validatePhone } from '~/server/lib/phone'
 import { checkForSpam } from '~/server/lib/session'
-import { sendSms } from '~/server/lib/sms'
+import { sendSms } from '~/server/lib/smsc'
 
 import { PrismaClient } from '@prisma/client'
 
@@ -56,7 +56,10 @@ async function handle({ phone, ip, ua }) {
     'Велодень 2022', //TODO: replace to current event title
   ].join('\n')
 
-  sendSms({ phone, text })
+  const { error } = await sendSms({ phone, text })
+  if (error) {
+    throw new Error(`${error}`)
+  }
 
   return (({ phone, createdAt }) => ({ phone, createdAt }))(session)
 }

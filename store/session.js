@@ -28,6 +28,10 @@ export const useSessionStore = defineStore("session", {
             this.error = data.error
             this.createdAt = data.createdAt
             this.phone = data.phone
+
+            if (data.error == 'message is denied') {
+                this.error = 'К сожалению, ваш оператор не пропускает смс. Мы работаем над устранением проблемы. Пожалуйста, попробуйте позже'
+            }
         },
 
         async validate(code) {

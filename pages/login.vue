@@ -1,7 +1,7 @@
 <script setup>
 useMeta({
   bodyAttrs: {
-    class: 'body-green',
+    class: 'body-white',
   },
 })
 

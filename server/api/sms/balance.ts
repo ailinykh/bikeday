@@ -1,4 +1,4 @@
-import { getSmsBalance } from '@/server/lib/sms'
+import { getSmsBalance } from '~/server/lib/smsc'
 
 export default defineEventHandler((event) => {
   return getSmsBalance()

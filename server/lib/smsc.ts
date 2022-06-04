@@ -10,6 +10,11 @@ interface SMSSendResponse {
   error?: Error
 }
 
+interface SMSStatusResponse {
+  status: number
+  last_timestamp: number
+}
+
 const common = {
   login: process.env.SMSC_LOGIN,
   psw: process.env.SMSC_PASSWORD,
@@ -20,6 +25,16 @@ const common = {
 const getSmsBalance = async () => {
   return await $fetch<SMSBalanceResponse>('https://smsc.ru/sys/balance.php', {
     params: common,
+  })
+}
+
+const getSmsStatus = async ({ phone, id }) => {
+  return await $fetch<SMSStatusResponse>('https://smsc.ru/sys/status.php', {
+    params: {
+      ...common,
+      phone,
+      id,
+    },
   })
 }
 
@@ -38,6 +53,8 @@ const sendSms = async ({ phone, text }) => {
       },
     }
   )
+
+  console.log('💬 smsc', phone, 'id:', id, 'cnt:', cnt, 'error:', error)
 
   if (id % 15 == 0) {
     const { balance } = await getSmsBalance()
@@ -62,4 +79,4 @@ const notify = async (text) => {
   )
 }
 
-export { sendSms, getSmsBalance }
+export { sendSms, getSmsBalance, getSmsStatus }
