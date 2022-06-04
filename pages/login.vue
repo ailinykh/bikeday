@@ -11,6 +11,7 @@ import { useSessionStore } from '~/store/session'
 const session = useSessionStore()
 
 if (session.user) {
+  console.log('user already exists. redirecting to profile')
   navigateTo('/profile')
 }
 

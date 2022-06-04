@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import crypto from 'crypto'
 
 const prisma = new PrismaClient()
 
@@ -13,6 +12,7 @@ export default defineEventHandler(async (event) => {
   try {
     const res = await handle(data)
     if (res.session) {
+      console.log('session validated', res.session.token)
       setCookie(event, 'session', res.session.token)
     }
     return {

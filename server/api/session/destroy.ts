@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
   const { session } = useCookies(event)
   try {
     await handle({ token: session })
+    console.log('destroying session', session)
     setCookie(event, 'session', null)
     return {
       success: true,
