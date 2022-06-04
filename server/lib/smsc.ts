@@ -1,3 +1,5 @@
+import { sendMessage } from './telegram'
+
 const runtimeConfig = useRuntimeConfig()
 
 interface SMSBalanceResponse {
@@ -58,25 +60,10 @@ const sendSms = async ({ phone, text }) => {
 
   if (id % 15 == 0) {
     const { balance } = await getSmsBalance()
-    await notify(`Баланс SMS составляет <b>${balance}</b> руб.`)
+    await sendMessage(`Баланс SMS составляет <b>${balance}</b> руб.`)
   }
 
   return { cnt, error }
-}
-
-const notify = async (text) => {
-  await $fetch(
-    `https://api.telegram.org/bot${runtimeConfig.botToken}/sendMessage`,
-    {
-      method: 'POST',
-      body: {
-        chat_id: runtimeConfig.botChatId,
-        text,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true,
-      },
-    }
-  )
 }
 
 export { sendSms, getSmsBalance, getSmsStatus }
