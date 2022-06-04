@@ -1,7 +1,5 @@
 import { sendMessage } from './telegram'
 
-const runtimeConfig = useRuntimeConfig()
-
 interface SMSBalanceResponse {
   balance: string
 }
@@ -24,13 +22,13 @@ const common = {
   fmt: 3,
 }
 
-const getSmsBalance = async () => {
+const getSmscBalance = async () => {
   return await $fetch<SMSBalanceResponse>('https://smsc.ru/sys/balance.php', {
     params: common,
   })
 }
 
-const getSmsStatus = async ({ phone, id }) => {
+const getSmscStatus = async ({ phone, id }) => {
   return await $fetch<SMSStatusResponse>('https://smsc.ru/sys/status.php', {
     params: {
       ...common,
@@ -40,7 +38,7 @@ const getSmsStatus = async ({ phone, id }) => {
   })
 }
 
-const sendSms = async ({ phone, text }) => {
+const sendSmsc = async ({ phone, text }) => {
   const data = {
     phones: phone,
     mes: text,
@@ -59,11 +57,11 @@ const sendSms = async ({ phone, text }) => {
   console.log('💬 smsc', phone, 'id:', id, 'cnt:', cnt, 'error:', error)
 
   if (id % 15 == 0) {
-    const { balance } = await getSmsBalance()
+    const { balance } = await getSmscBalance()
     await sendMessage(`Баланс SMS составляет <b>${balance}</b> руб.`)
   }
 
   return { cnt, error }
 }
 
-export { sendSms, getSmsBalance, getSmsStatus }
+export { sendSmsc, getSmscBalance, getSmscStatus }
