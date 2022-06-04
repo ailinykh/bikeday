@@ -1,9 +1,8 @@
-import { useSessionStore } from '~/store/session'
-
 export default defineNuxtRouteMiddleware((to, from) => {
-  const session = useSessionStore()
-  if (!session.user) {
+  const cookie = useCookie('session')
+  if (!cookie.value) {
+    console.log('🥵 user not exists! Redirecting to /login')
     return navigateTo('/login')
   }
-  console.log('🔥 authorized', session.user.phone)
+  console.log('🔥 authorized', cookie.value)
 })
