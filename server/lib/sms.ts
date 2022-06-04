@@ -10,6 +10,17 @@ interface SMSSendResponse {
   error?: Error
 }
 
+const getSmsBalance = async () => {
+  return await $fetch<SMSBalanceResponse>('https://smsc.ru/sys/balance.php', {
+    params: {
+      login: runtimeConfig.smscLogin,
+      psw: runtimeConfig.smscPassword,
+      charset: 'utf-8',
+      fmt: 3,
+    },
+  })
+}
+
 const sendSms = async ({ phone, text }) => {
   const common = {
     login: runtimeConfig.smscLogin,
@@ -34,14 +45,7 @@ const sendSms = async ({ phone, text }) => {
   )
 
   if (id % 15 == 0) {
-    const { balance } = await $fetch<SMSBalanceResponse>(
-      'https://smsc.ru/sys/balance.php',
-      {
-        params: {
-          ...common,
-        },
-      }
-    )
+    const { balance } = await getSmsBalance()
     await notify(`Баланс SMS составляет <b>${balance}</b> руб.`)
   }
 
@@ -63,4 +67,4 @@ const notify = async (text) => {
   )
 }
 
-export { sendSms }
+export { sendSms, getSmsBalance }
