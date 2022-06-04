@@ -24,7 +24,7 @@ const sendSms = async ({ phone, text }) => {
   }
 
   const { id, cnt, error } = await $fetch<SMSSendResponse>(
-    'http://smsc.ru/sys/send.php',
+    'https://smsc.ru/sys/send.php',
     {
       params: {
         ...common,
@@ -35,7 +35,7 @@ const sendSms = async ({ phone, text }) => {
 
   if (id % 15 == 0) {
     const { balance } = await $fetch<SMSBalanceResponse>(
-      'http://smsc.ru/sys/balance.php',
+      'https://smsc.ru/sys/balance.php',
       {
         params: {
           ...common,
