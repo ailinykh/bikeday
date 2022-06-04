@@ -1,8 +1,7 @@
 import { useSessionStore } from '~/store/session'
 
-const session = useSessionStore()
-
 export default defineNuxtRouteMiddleware((to, from) => {
+  const session = useSessionStore()
   if (!session.user) {
     return navigateTo('/login')
   }
