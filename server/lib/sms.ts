@@ -17,7 +17,7 @@ const getSmsBalance = async () => {
     charset: 'utf-8',
     fmt: 3,
   }
-  console.log('sms balance', params)
+  console.log('sms balance', params, runtimeConfig)
   return await $fetch<SMSBalanceResponse>('https://smsc.ru/sys/balance.php', {
     params,
   })
