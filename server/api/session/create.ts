@@ -56,7 +56,7 @@ async function handle({ phone, ip, ua }) {
     'Велодень 2022', //TODO: replace to current event title
   ].join('\n')
 
-  //   sendSms({ phone, text })
+  sendSms({ phone, text })
 
   return (({ phone, createdAt }) => ({ phone, createdAt }))(session)
 }
