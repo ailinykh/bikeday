@@ -12,7 +12,7 @@ const session = useSessionStore()
 
 if (session.user) {
   console.log('user already exists. redirecting to profile')
-  navigateTo('/profile')
+  setTimeout(() => navigateTo('/profile'), 100)
 }
 
 const { createdAt } = storeToRefs(session)
