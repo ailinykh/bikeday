@@ -16,7 +16,30 @@ export default defineNuxtConfig({
           name: 'description',
           content: `Велодень в Орле ${new Date().getFullYear()}`,
         },
-        { name: 'format-detection', content: 'telephone=no' },
+        /* Open Graph / Facebook */
+        { name: 'og:type', content: 'website' },
+        { name: 'og:url', content: 'https://bikeday.me/' },
+        {
+          name: 'og:title',
+          content: `Велодень ${new Date().getFullYear()} в Орле`,
+        },
+        {
+          name: 'og:description',
+          content: `Девятый Велодень в Орле пройдет 5 июня 2022 года`,
+        },
+        { name: 'og:image', content: '/static/bikeday-2022.jpg' },
+        /* Twitter */
+        { name: 'twitter:card', content: 'website' },
+        { name: 'twitter:url', content: 'https://bikeday.me/' },
+        {
+          name: 'twitter:title',
+          content: `Велодень ${new Date().getFullYear()} в Орле`,
+        },
+        {
+          name: 'twitter:description',
+          content: `Девятый Велодень в Орле пройдет 5 июня 2022 года`,
+        },
+        { name: 'twitter:image', content: '/static/bikeday-2022.jpg' },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
