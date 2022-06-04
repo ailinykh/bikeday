@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
       success: true,
     }
   } catch (e) {
+    setCookie(event, 'session', null)
     return {
       error: e.message,
       success: false,
@@ -26,14 +27,14 @@ async function handle({ token }) {
       status: 'valid',
     },
   })
-  if (session) {
-    const user = await prisma.user.findFirst({
-      where: {
-        OR: { phone: session.phone },
-        NOT: { status: 'child' },
-      },
-    })
-    return { user }
+  if (!session) {
+    throw Error('invalid session token')
   }
-  return {}
+  const user = await prisma.user.findFirst({
+    where: {
+      OR: { phone: session.phone },
+      NOT: { status: 'child' },
+    },
+  })
+  return { user }
 }
