@@ -7,16 +7,7 @@ useMeta({
 </script>
 
 <template>
-  <div class="soon"></div>
+  <div class="text-center py-5 my-5">
+    <img src="/static/coming-soon.png" />
+  </div>
 </template>
-
-<style scoped>
-.soon {
-  height: 310px;
-  width: 100%;
-  background: url('/static/coming-soon.png') center no-repeat;
-  position: absolute;
-  top: 50%;
-  margin-top: -155px;
-}
-</style>

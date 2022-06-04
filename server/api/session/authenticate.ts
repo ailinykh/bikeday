@@ -27,11 +27,13 @@ async function handle({ token }) {
     },
   })
   if (session) {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
       where: {
-        phone: session.phone,
+        OR: { phone: session.phone },
+        NOT: { status: 'child' },
       },
     })
     return { user }
   }
+  return {}
 }

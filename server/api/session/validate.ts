@@ -58,7 +58,8 @@ async function handle({ code, phone }) {
 async function findOrCreateUser({ phone }) {
   const user = await prisma.user.findFirst({
     where: {
-      phone,
+      OR: { phone },
+      NOT: { status: 'child' },
     },
   })
   if (user) {

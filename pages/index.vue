@@ -1,5 +1,11 @@
+<script setup>
+definePageMeta({
+  // layout: 'custom',
+})
+</script>
+
 <template>
-  <div>
-    <ComingSoon />
-  </div>
+  <main class="m-auto h-100">
+    <Landing />
+  </main>
 </template>
