@@ -29,6 +29,7 @@ export const useSessionStore = defineStore("session", {
             this.createdAt = data.createdAt
             this.phone = data.phone
 
+            //TODO: deprecated
             if (data.error == 'message is denied') {
                 this.error = 'К сожалению, ваш оператор не пропускает смс. Мы работаем над устранением проблемы. Пожалуйста, попробуйте позже'
             }

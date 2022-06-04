@@ -7,7 +7,7 @@ interface SMSBalanceResponse {
 interface SMSSendResponse {
   id: number
   cnt?: number
-  error?: Error
+  error?: string
 }
 
 interface SMSStatusResponse {

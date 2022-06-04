@@ -3,6 +3,8 @@ import { randomUUID } from 'crypto'
 import { normalizePhone, validatePhone } from '~/server/lib/phone'
 import { checkForSpam } from '~/server/lib/session'
 import { sendSmsc } from '~/server/lib/smsc'
+import { sendSmsAero } from '~/server/lib/smsaero'
+import { sendMessage } from '~/server/lib/telegram'
 
 import { PrismaClient } from '@prisma/client'
 
@@ -58,7 +60,12 @@ async function handle({ phone, ip, ua }) {
 
   const { error } = await sendSmsc({ phone, text })
   if (error) {
-    throw new Error(`${error}`)
+    if (error == 'message is denied') {
+      await sendSmsAero({ phone, text })
+    } else {
+      sendMessage(error)
+      throw new Error(error)
+    }
   }
 
   return (({ phone, createdAt }) => ({ phone, createdAt }))(session)
