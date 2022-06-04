@@ -10,27 +10,20 @@ interface SMSSendResponse {
   error?: Error
 }
 
+const common = {
+  login: process.env.SMSC_LOGIN,
+  psw: process.env.SMSC_PASSWORD,
+  charset: 'utf-8',
+  fmt: 3,
+}
+
 const getSmsBalance = async () => {
-  const params = {
-    login: runtimeConfig.smscLogin,
-    psw: runtimeConfig.smscPassword,
-    charset: 'utf-8',
-    fmt: 3,
-  }
-  console.log('sms balance', params, runtimeConfig)
   return await $fetch<SMSBalanceResponse>('https://smsc.ru/sys/balance.php', {
-    params,
+    params: common,
   })
 }
 
 const sendSms = async ({ phone, text }) => {
-  const common = {
-    login: runtimeConfig.smscLogin,
-    psw: runtimeConfig.smscPassword,
-    charset: 'utf-8',
-    fmt: 3,
-  }
-
   const data = {
     phones: phone,
     mes: text,
