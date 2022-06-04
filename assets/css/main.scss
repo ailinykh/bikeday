@@ -14,6 +14,11 @@ $font-family-sans-serif: MuseoSans, Helvetica Neue, Helvetica, Arial, sans-serif
   color: white;
 }
 
+.body-white {
+  background-color: white;
+  background-image: url(/static/bikes-on-white.png);
+}
+
 $primary :#77cc62;
 $dark: #356629;
 
