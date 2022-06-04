@@ -13,7 +13,7 @@ async function checkForSpam(ip: string) {
       },
     },
   })
-  if (sessions > 10) {
+  if (sessions > 100) {
     throw Error('too many code requests')
   }
 }
