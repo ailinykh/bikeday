@@ -22,6 +22,7 @@ $font-family-sans-serif: MuseoSans, Helvetica Neue, Helvetica, Arial, sans-serif
 $primary :#77cc62;
 $dark: #356629;
 
+
 // @import "node_modules/bootstrap/scss/functions";
 // @import "node_modules/bootstrap/scss/variables";
 // @import "node_modules/bootstrap/scss/utilities";
@@ -34,3 +35,8 @@ $dark: #356629;
 
 // Finally load bootstrap
 @import "node_modules/bootstrap/scss/bootstrap";
+
+
+a {
+  text-decoration: none;
+}

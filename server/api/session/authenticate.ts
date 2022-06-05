@@ -35,6 +35,13 @@ async function handle({ token }) {
       OR: { phone: session.phone },
       NOT: { status: 'child' },
     },
+    include: {
+      eventParticipations: true,
+      contestParticipations: true,
+    },
   })
-  return { user }
+  // TODO: duplicated code
+  const isVolunteer = user.status == 'volunteer' || user.status == 'admin'
+  const isAdmin = user.status == 'admin'
+  return { user, isVolunteer, isAdmin }
 }

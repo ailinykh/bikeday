@@ -3,6 +3,8 @@ import { defineStore } from "pinia";
 export const useSessionStore = defineStore("session", {
     state: () => {
         return {
+            isVolunteer: false,
+            isAdmin: false,
             user: null,
             isLoading: false,
             error: null,
@@ -51,6 +53,8 @@ export const useSessionStore = defineStore("session", {
             this.isLoading = false
             this.error = data.error
             this.user = data.user
+            this.isVolunteer = !!data.isVolunteer
+            this.isAdmin = !!data.isAdmin
 
             if (data.user) 
                 return navigateTo('/profile')
@@ -65,6 +69,8 @@ export const useSessionStore = defineStore("session", {
             const res = await useFetch('/api/session/authenticate', options)
             const { data: { value: data } } = res
             this.user = data.user
+            this.isVolunteer = !!data.isVolunteer
+            this.isAdmin = !!data.isAdmin
         },
 
         async destroy() {

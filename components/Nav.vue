@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia'
 import { useSessionStore } from '~/store/session'
 
 const session = useSessionStore()
-const { user } = storeToRefs(session)
+const { user, isVolunteer } = storeToRefs(session)
 </script>
 
 <template>
@@ -23,10 +23,14 @@ const { user } = storeToRefs(session)
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <NuxtLink to="/profile" class="nav-link" v-if="user"
-              >Профайл</NuxtLink
-            >
+          <li class="nav-item" v-show="isVolunteer">
+            <NuxtLink to="/admin/register" class="nav-link">Рега</NuxtLink>
+          </li>
+          <li class="nav-item" v-show="isVolunteer">
+            <NuxtLink to="/admin/contests" class="nav-link">Конкурсы</NuxtLink>
+          </li>
+          <li class="nav-item" v-show="user">
+            <NuxtLink to="/profile" class="nav-link">Личный кабинет</NuxtLink>
           </li>
           <li class="nav-item">
             <NuxtLink to="/logout" class="nav-link" v-if="user">Выход</NuxtLink>

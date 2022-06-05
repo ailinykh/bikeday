@@ -10,27 +10,32 @@ definePageMeta({
 import { storeToRefs } from 'pinia'
 import { useSessionStore } from '~/store/session'
 import { useEventStore } from '~/store/event'
-const session = useSessionStore()
-const event = useEventStore()
+const sessionStore = useSessionStore()
+const eventStore = useEventStore()
 
-const { user } = storeToRefs(session)
-const { participation } = storeToRefs(event)
+const { user } = storeToRefs(sessionStore)
+const { participation } = storeToRefs(eventStore)
 
-session.$subscribe((store, state) => {
+sessionStore.$subscribe((store, state) => {
   console.log('profile.vue', store, state.user)
 })
 
-event.$subscribe((store, state) => {
+eventStore.$subscribe((store, state) => {
   console.log('profile.vue', state.participation)
 })
 
-event.load()
+eventStore.load()
 </script>
 
 <template>
   <div>
-    <UserProfileForm v-if="!user.firstName || !user.lastName || !user.gender" />
-    <UserEventForm v-else-if="!participation" />
-    <UserEventParticipation v-else />
+    <div v-if="user">
+      <UserProfileForm
+        v-if="!user.firstName || !user.lastName || !user.gender"
+      />
+      <UserEventForm v-else-if="!participation" />
+      <UserEventParticipation v-else />
+      <UserContest :user="user" />
+    </div>
   </div>
 </template>

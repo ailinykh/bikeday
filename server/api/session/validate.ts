@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   try {
     const res = await handle(data)
     if (res.session) {
-      console.log('session validated', res.session.token)
+      console.log('✅ session is valid', res.session.token)
       setCookie(event, 'session', res.session.token)
     }
     return {
@@ -52,7 +52,10 @@ async function handle({ code, phone }) {
     },
   })
   const user = await findOrCreateUser({ phone })
-  return { session, user }
+  // TODO: duplicated code
+  const isVolunteer = user.status == 'volunteer' || user.status == 'admin'
+  const isAdmin = user.status == 'admin'
+  return { session, user, isVolunteer, isAdmin }
 }
 
 async function findOrCreateUser({ phone }) {
@@ -60,6 +63,10 @@ async function findOrCreateUser({ phone }) {
     where: {
       OR: { phone },
       NOT: { status: 'child' },
+    },
+    include: {
+      eventParticipations: true,
+      contestParticipations: true,
     },
   })
   if (user) {
