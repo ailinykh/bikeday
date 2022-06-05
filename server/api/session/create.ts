@@ -11,7 +11,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default defineEventHandler(async (event) => {
-  const ip = event.req.socket.remoteAddress || '127.0.0.1'
+  const ip = event.req.headers['x-forwarded-for'] || '127.0.0.1'
   const ua = event.req.headers['user-agent']
   const body = await useBody(event)
   const phone = normalizePhone(body.phone)
