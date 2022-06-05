@@ -15,13 +15,11 @@ const contest = useContestStore()
 const { isVolunteer } = storeToRefs(session)
 const { contests } = storeToRefs(contest)
 
-onMounted(() => {
-  if (!isVolunteer) {
-    navigateTo('/')
-  }
+if (!isVolunteer) {
+  navigateTo('/')
+}
 
-  contest.load()
-})
+contest.load()
 </script>
 
 <template>
