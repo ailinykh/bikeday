@@ -70,6 +70,9 @@ async function findByPhone(phone) {
         endsWith: phone,
       },
     },
+    include: {
+      eventParticipations: true,
+    },
   })
   return { users }
 }

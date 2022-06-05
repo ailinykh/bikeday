@@ -77,7 +77,12 @@ onMounted(() => {
           :click="handleUserSelection(user)"
         />
         <label class="form-check-label" :for="user.id"
-          >{{ user.firstName }} {{ user.lastName }} {{ user.phone }}</label
+          >{{ user.firstName }} {{ user.lastName }} {{ user.phone }}
+          <span class="band">{{
+            user.eventParticipations.find((p) => p.eventId == 9) !== undefined
+              ? user.eventParticipations.find((p) => p.eventId == 9).band
+              : ''
+          }}</span></label
         >
       </div>
       <button
@@ -94,3 +99,13 @@ onMounted(() => {
     </form>
   </div>
 </template>
+
+<style scoped>
+.form-check-label {
+  font-weight: bold;
+}
+
+.band {
+  color: red;
+}
+</style>
