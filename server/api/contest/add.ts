@@ -8,8 +8,8 @@ export default defineEventHandler(async (event) => {
   const { id, user } = await useBody(event)
 
   try {
-    const user = await findUserByToken(session)
-    if (user.id != id && !['admin', 'volunteer'].includes(user.status)) {
+    const u = await findUserByToken(session)
+    if (u.id != id && !['admin', 'volunteer'].includes(u.status)) {
       return { error: 'not authorized' }
     }
 
@@ -34,6 +34,7 @@ async function handle({ id, user }) {
     },
   })
 
+  console.log(id, user, existing)
   if (existing) {
     throw Error('Пользователь уже является участником конкурса')
   }
