@@ -10,7 +10,7 @@ const props = defineProps({
     <div class="m-5">
       <a
         class="btn btn-primary"
-        :href="`http://cert.bikeday.me/2022?name=${user.firstName}%20${user.lastName}`"
+        :href="`https://cert.bikeday.me/2022?name=${user.firstName}%20${user.lastName}`"
         >Скачать сертификат</a
       >
     </div>
