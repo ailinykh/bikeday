@@ -12,6 +12,7 @@ import { useSessionStore } from '~/store/session'
 import { useEventStore } from '~/store/event'
 const sessionStore = useSessionStore()
 const eventStore = useEventStore()
+eventStore.load()
 
 const { user } = storeToRefs(sessionStore)
 const { participation } = storeToRefs(eventStore)
@@ -23,8 +24,6 @@ sessionStore.$subscribe((store, state) => {
 eventStore.$subscribe((store, state) => {
   console.log('profile.vue', state.participation)
 })
-
-eventStore.load()
 </script>
 
 <template>
@@ -34,8 +33,8 @@ eventStore.load()
         v-if="!user.firstName || !user.lastName || !user.gender"
       />
       <UserEventForm v-else-if="!participation" />
-      <UserEventParticipation v-else />
-      <UserContest :user="user" />
+      <UserEventParticipation v-else :user="user" />
+      <!-- <UserContest :user="user" /> -->
     </div>
   </div>
 </template>
