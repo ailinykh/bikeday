@@ -1,3 +1,13 @@
 <script setup>
-navigateTo('/static/cert-2022.png')
+import { useSessionStore } from '~/store/session'
+
+const session = useSessionStore()
+const { user } = session
+
+if (!user) {
+  navigateTo('/login')
+} else {
+  navigateTo('/profile')
+}
 </script>
+<template />
