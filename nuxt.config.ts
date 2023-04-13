@@ -25,7 +25,7 @@ export default defineNuxtConfig({
         },
         {
           name: 'og:description',
-          content: `Девятый Велодень в Орле пройдет 5 июня 2022 года`,
+          content: `Десятый Велодень в Орле пройдет 28 мая 2023 года`,
         },
         { name: 'og:image', content: '/static/bikeday-2022.jpg' },
         /* Twitter */
@@ -37,7 +37,7 @@ export default defineNuxtConfig({
         },
         {
           name: 'twitter:description',
-          content: `Девятый Велодень в Орле пройдет 5 июня 2022 года`,
+          content: `Десятый Велодень в Орле пройдет 28 мая 2023 года`,
         },
         { name: 'twitter:image', content: '/static/bikeday-2022.jpg' },
       ],

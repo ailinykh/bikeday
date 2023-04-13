@@ -39,6 +39,10 @@ const eventData = [
     title: 'Велодень 2022',
     date: new Date('2022-06-05T09:00:00'),
   },
+  {
+    title: 'Велодень 2023',
+    date: new Date('2023-05-28T09:00:00'),
+  },
 ]
 
 let order = 0

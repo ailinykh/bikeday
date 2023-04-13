@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
 async function findByBand(band) {
   const event = await prisma.event.findFirst({
     where: {
-      title: 'Велодень 2022',
+      title: 'Велодень 2023',
     },
   })
   const participation = await prisma.eventParticipation.findFirst({

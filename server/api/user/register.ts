@@ -30,7 +30,7 @@ async function handle({ data, user }) {
   const phone = data.phone.replace(/\D+/g, '').replace(/^8/g, '7')
   const event = await prisma.event.findFirst({
     where: {
-      title: 'Велодень 2022',
+      title: 'Велодень 2023',
     },
   })
 

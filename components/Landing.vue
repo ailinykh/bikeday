@@ -62,11 +62,11 @@ const sponsors = [
 <template>
   <div>
     <section class="px-4 py-5 my-5 text-center">
-      <h1 class="display-5 fw-bold">Орловский Велодень 2022</h1>
+      <h1 class="display-5 fw-bold">Орловский Велодень 2023</h1>
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">
-          Девятый "Велодень 2022" в Орле назначен на
-          <strong class="red">5 июня</strong> и приурочен ко всемирному дню
+          Десятый "Велодень 2023" в Орле назначен на
+          <strong class="red">28 мая</strong> и приурочен ко всемирному дню
           велосипеда - 3 июня.
         </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
