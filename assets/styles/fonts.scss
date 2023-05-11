@@ -1,0 +1,111 @@
+/* font-family: 'MuseoSansRegular'; */
+@font-face {
+    font-family: 'MuseoSans';
+    src: url('/static/fonts/MuseoSansRegular.eot');
+    src: url('/static/fonts/MuseoSansRegular.eot?#iefix')format('embedded-opentype'),
+    url('/static/fonts/MuseoSansRegular.woff') format('woff'),
+    url('/static/fonts/MuseoSansRegular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: 'MuseoSansBold'; */
+@font-face {
+    font-family: 'MuseoSans';
+    src: url('/static/fonts/MuseoSansBold.eot');
+    src: url('/static/fonts/MuseoSansBold.eot?#iefix')format('embedded-opentype'),
+    url('/static/fonts/MuseoSansBold.woff') format('woff'),
+    url('/static/fonts/MuseoSansBold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+/* font-family: 'MuseoSansItalic'; */
+@font-face {
+    font-family: 'MuseoSans';
+    src: url('/static/fonts/MuseoSansItalic.eot');
+    src: url('/static/fonts/MuseoSansItalic.eot?#iefix')format('embedded-opentype'),
+    url('/static/fonts/MuseoSansItalic.woff') format('woff'),
+    url('/static/fonts/MuseoSansItalic.ttf') format('truetype');
+    font-style: italic;
+    font-weight: normal;
+}
+/* font-family: 'MuseoSansLight'; */
+@font-face {
+    font-family: 'MuseoSans';
+    src: url('/static/fonts/MuseoSansLight.eot');
+    src: url('/static/fonts/MuseoSansLight.eot?#iefix')format('embedded-opentype'),
+    url('/static/fonts/MuseoSansLight.woff') format('woff'),
+    url('/static/fonts/MuseoSansLight.ttf') format('truetype');
+    font-style: normal;
+    font-weight: lighter;
+}
+/* font-family: 'MuseoSansMedium'; */
+@font-face {
+    font-family: 'MuseoSans';
+    src: url('/static/fonts/MuseoSansMedium.eot');
+    src: url('/static/fonts/MuseoSansMedium.eot?#iefix')format('embedded-opentype'),
+    url('/static/fonts/MuseoSansMedium.woff') format('woff'),
+    url('/static/fonts/MuseoSansMedium.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 500;
+}
+/* font-family: 'MuseoSansBoldItalic'; */
+@font-face {
+    font-family: 'MuseoSans';
+    src: url('/static/fonts/MuseoSansBoldItalic.eot');
+    src: url('/static/fonts/MuseoSansBoldItalic.eot?#iefix')format('embedded-opentype'),
+    url('/static/fonts/MuseoSansBoldItalic.woff') format('woff'),
+    url('/static/fonts/MuseoSansBoldItalic.ttf') format('truetype');
+    font-style: italic;
+    font-weight: bold;
+}
+/* font-family: 'MuseoSansMediumItalic'; */
+@font-face {
+    font-family: 'MuseoSans';
+    src: url('/static/fonts/MuseoSansMediumItalic.eot');
+    src: url('/static/fonts/MuseoSansMediumItalic.eot?#iefix')format('embedded-opentype'),
+    url('/static/fonts/MuseoSansMediumItalic.woff') format('woff'),
+    url('/static/fonts/MuseoSansMediumItalic.ttf') format('truetype');
+    font-style: italic;
+    font-weight: 500;
+}
+/* font-family: 'MuseoSansLightItalic'; */
+@font-face {
+    font-family: 'MuseoSans';
+    src: url('/static/fonts/MuseoSansLightItalic.eot');
+    src: url('/static/fonts/MuseoSansLightItalic.eot?#iefix')format('embedded-opentype'),
+    url('/static/fonts/MuseoSansLightItalic.woff') format('woff'),
+    url('/static/fonts/MuseoSansLightItalic.ttf') format('truetype');
+    font-style: italic;
+    font-weight: lighter;
+}
+
+@font-face {
+    font-family: 'LigatureSymbols';
+    src: url('/static/fonts/LigatureSymbols-2.11.eot');
+    src: url('/static/fonts/LigatureSymbols-2.11.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/LigatureSymbols-2.11.woff') format('woff'),
+         url('/static/fonts/LigatureSymbols-2.11.ttf') format('truetype'),
+         url('/static/fonts/LigatureSymbols-2.11.svg#LigatureSymbols') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.lsf, .lsf-icon:before {
+    font-family: 'LigatureSymbols';
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    text-transform: none;
+}
+
+.lsf-icon:before {
+    content:attr(title);
+    margin-right:0.3em;
+    font-size:130%;
+}
