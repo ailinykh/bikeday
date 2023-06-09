@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 export default defineEventHandler(
   async (event: H3Event) => {
-    await protectPassword(event);
+    await protectIpAddress(event);
 
     const body = await readBody(event);
 

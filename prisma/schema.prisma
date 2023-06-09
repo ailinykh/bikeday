@@ -35,3 +35,15 @@ model OneTimePasswordLog {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
+
+model User {
+    id         Int      @id @default(autoincrement())
+    status     String
+    phone      String   @unique
+    telegramId BigInt?  @unique
+    firstName  String
+    lastName   String
+    gender     String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}

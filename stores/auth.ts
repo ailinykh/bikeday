@@ -15,7 +15,7 @@ const localize = (errorMessage: string): string => {
     "Phone request limit exceeded":
       "Повторите запрос чуть позже",
     "Code invalid or expired": "Недействительный код",
-    "IP request limit exceeded": "Слишком много запросов",
+    "Too Many Requests": "Слишком много запросов",
   };
 
   return errors[errorMessage] || "Неизвестная ошибка";

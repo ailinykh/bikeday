@@ -20,9 +20,10 @@ export default async (event: H3Event) => {
     },
   });
   if (count > REQUEST_LIMIT) {
+    console.log(`Too Many Requests for ${ipAddress}`);
     throw createError({
       statusCode: 429,
-      statusMessage: "IP request limit exceeded",
+      statusMessage: "Too Many Requests",
     });
   }
 };

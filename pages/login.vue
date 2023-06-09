@@ -2,9 +2,15 @@
 import { storeToRefs } from "pinia";
 import { useAuth } from "~/stores/auth";
 
+const telegramLoginUrl = ref<string | undefined>();
 const auth = useAuth();
 const { authRequest, loading, errorMessage } =
   storeToRefs(auth);
+
+const { data } = await useFetch("/api/telegram/loginUrl");
+if (data.value) {
+  telegramLoginUrl.value = data.value.url;
+}
 </script>
 
 <template>
@@ -21,6 +27,7 @@ const { authRequest, loading, errorMessage } =
       v-else
       :loading="loading"
       :errorMessage="errorMessage"
+      :telegramLoginUrl="telegramLoginUrl"
       @login:phone="auth.login"
     />
   </div>

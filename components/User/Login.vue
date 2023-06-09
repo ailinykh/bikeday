@@ -5,6 +5,7 @@ const props = defineProps({
     defaultValue: false,
   },
   errorMessage: String,
+  telegramLoginUrl: String,
 });
 
 defineEmits(["login:phone"]);
@@ -46,15 +47,33 @@ const phone = ref("");
           {{ errorMessage }}
         </p>
       </div>
-      <div class="">
+      <div class="my-4">
         <button
           type="submit"
           :disabled="loading"
-          class="inline-flex items-start w-full place-content-center bg-green-600 px-5 py-3 text-white font-medium disabled:opacity-75"
+          class="inline-flex items-start w-full place-content-center bg-green-600 py-3 text-white font-medium disabled:opacity-75"
         >
           <Loading v-if="loading" class="h-5 w-5" />
           Получить код
         </button>
+      </div>
+      <div v-if="telegramLoginUrl">
+        <p class="text-center">либо другим способом</p>
+        <div class="my-4">
+          <NuxtLink
+            type="button"
+            :disabled="loading"
+            :to="telegramLoginUrl"
+            class="inline-flex items-center w-full place-content-center bg-blue-400 py-3 text-white font-medium disabled:opacity-75"
+          >
+            <i
+              ><font-awesome-icon
+                class="px-3"
+                icon="fa-brands fa-telegram"
+            /></i>
+            Войти через Telegram
+          </NuxtLink>
+        </div>
       </div>
     </form>
   </div>
