@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
-import { AuthRequest } from "~/types/user";
+import { AuthRequest, User } from "~/types/user";
 
 type AuthState = {
   authRequest?: AuthRequest;
   errorMessage?: string;
   loading: boolean;
+  initialized: boolean;
+  user?: User;
 };
 
 const localize = (errorMessage: string): string => {
@@ -27,20 +29,29 @@ export const useAuth = defineStore("auth", {
       authRequest: undefined,
       errorMessage: undefined,
       loading: false,
+      initialized: false,
+      user: undefined,
     };
   },
   actions: {
+    async initialize() {
+      if (this.initialized) {
+        return;
+      }
+      this.initialized = true;
+      const { data } = await useFetch<User>("/api/session");
+      this.user = data.value || undefined;
+    },
+
     async login(phone: string) {
       this.loading = true;
       this.errorMessage = undefined;
 
-      const { error, data } = await useFetch(
-        `/api/otp/create`,
-        {
+      const { error, data } =
+        await useLazyFetch<AuthRequest>(`/api/session`, {
           method: "POST",
           body: { phone },
-        }
-      );
+        });
 
       this.loading = false;
 
@@ -56,10 +67,10 @@ export const useAuth = defineStore("auth", {
       this.loading = true;
       this.errorMessage = undefined;
 
-      const { error, data } = await useFetch(
-        `/api/otp/validate`,
+      const { error, data } = await useLazyFetch<User>(
+        `/api/session`,
         {
-          method: "POST",
+          method: "PUT",
           body: { code, phone },
         }
       );
@@ -69,6 +80,18 @@ export const useAuth = defineStore("auth", {
       if (error.value) {
         const message = error.value.statusMessage || "";
         this.errorMessage = localize(message);
+      } else if (data.value) {
+        this.user = data.value;
+      }
+    },
+
+    async logout() {
+      const { error } = await useLazyFetch("/api/session", {
+        method: "DELETE",
+      });
+      if (!error.value) {
+        this.user = undefined;
+        navigateTo("/");
       }
     },
   },

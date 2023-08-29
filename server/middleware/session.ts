@@ -16,10 +16,9 @@ export default defineEventHandler(async (event) => {
       return;
     }
 
-    console.log(user);
     event.context.user = user;
   } catch (err) {
-    if (err == jwt.TokenExpiredError) {
+    if (err instanceof jwt.TokenExpiredError) {
       console.info("❌ token expired");
     } else {
       console.error(err);

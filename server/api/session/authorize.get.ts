@@ -1,13 +1,20 @@
-import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { H3Event, getProxyRequestHeaders } from "h3";
+import { createSession } from "~/server/lib/session";
 
 const prisma = new PrismaClient();
 const { tokenSecret } = useRuntimeConfig();
 
 export default defineEventHandler(
   async (event: H3Event) => {
-    const password = event.context.params!.uuid;
+    const { code } = getQuery(event);
+    if (!code) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: "Bad Request",
+      });
+    }
+    const password = code.toString();
     const now = new Date().getTime();
     const timeout = new Date(now - 5 * 60_000);
     const otp = await prisma.oneTimePassword.findFirst({
@@ -51,22 +58,7 @@ export default defineEventHandler(
       });
     }
 
-    if (tokenSecret.length == 0) {
-      console.error("❌ secret token is empty");
-    }
-
-    const token = jwt.sign(
-      {
-        id: user.id,
-        phone: user.phone,
-      },
-      tokenSecret,
-
-      {
-        expiresIn: 3600,
-      }
-    );
-    setCookie(event, "__session", token);
+    createSession(event, user);
 
     return sendRedirect(event, "/event");
   }

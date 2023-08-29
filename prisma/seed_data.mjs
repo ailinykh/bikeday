@@ -37,7 +37,7 @@ const events = [
   },
   {
     title: "Велодень 2023",
-    date: new Date("2023-05-28T09:00:00"),
+    date: new Date("2023-09-10T09:00:00"),
   },
 ];
 

@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { H3Event } from "h3";
+import { createSession } from "~/server/lib/session";
 
 const prisma = new PrismaClient();
 
@@ -35,9 +36,27 @@ export default defineEventHandler(
 
     // Authorization succeeded
     if (password) {
-      return {
-        success: true,
-      };
+      let user = await prisma.user.findFirst({
+        where: {
+          phone: password.context,
+        },
+      });
+
+      if (!user) {
+        user = await prisma.user.create({
+          data: {
+            phone: password.context,
+            status: "user",
+            firstName: "",
+            lastName: "",
+            gender: "",
+          },
+        });
+      }
+
+      createSession(event, user);
+
+      return user;
     }
 
     // Code invalid or expired

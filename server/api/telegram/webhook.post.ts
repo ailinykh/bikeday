@@ -3,6 +3,7 @@ import {
   protectRequest,
   handleStart,
   handleContact,
+  handlePing,
 } from "../../lib/telegram";
 
 export default defineEventHandler(async (event) => {
@@ -13,6 +14,10 @@ export default defineEventHandler(async (event) => {
 
   if (message.text?.startsWith("/start")) {
     return handleStart(message, event);
+  }
+
+  if (message.text?.startsWith("ping")) {
+    return handlePing(message, event);
   }
 
   if (message.contact) {

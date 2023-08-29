@@ -4,8 +4,14 @@ import { useAuth } from "~/stores/auth";
 
 const telegramLoginUrl = ref<string | undefined>();
 const auth = useAuth();
-const { authRequest, loading, errorMessage } =
+const { authRequest, loading, errorMessage, user } =
   storeToRefs(auth);
+
+await auth.initialize();
+
+if (user?.value) {
+  navigateTo(`/event`);
+}
 
 const { data } = await useFetch("/api/telegram/loginUrl");
 if (data.value) {

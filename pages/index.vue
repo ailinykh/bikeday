@@ -2,11 +2,13 @@
   <div class="bikeday-bg-white">
     <div class="container mx-auto text-center">
       <section class="p-10">
-        <h1 class="text-6xl font-medium py-10">Орловский {{ event.title }}</h1>
+        <h1 class="text-6xl font-medium py-10">
+          Орловский {{ event.title }}
+        </h1>
         <p class="text-xl mb-14">
           Десятый "Велодень" в Орле назначен на
-          <strong class="text-rose-600">28 мая</strong> и приурочен ко
-          всемирному дню велосипеда - 3 июня.
+          <!-- TODO: event.date -->
+          <strong class="text-rose-600">10 сентября</strong>
         </p>
         <NuxtLink
           to="/login"
@@ -17,8 +19,13 @@
         </NuxtLink>
       </section>
       <section class="p-5 my-5">
-        <h2 class="text-5xl font-medium py-10">Велодню помогают</h2>
-        <div class="grid grid-cols-3 gap-10" v-for="sponsor in sponsors">
+        <h2 class="text-5xl font-medium py-10">
+          Велодню помогают
+        </h2>
+        <div
+          class="grid grid-cols-3 gap-10"
+          v-for="sponsor in sponsors"
+        >
           <div class="" v-for="s in sponsor">
             <NuxtLink :href="s.url" target="_blank"
               ><img
@@ -58,7 +65,8 @@ const sponsors = [
     {
       url: "https://vk.com/izuminka57",
       imageUrl: "/static/sponsors/izuminka.png",
-      title: "Воздушные шары, организация праздников г. Орел",
+      title:
+        "Воздушные шары, организация праздников г. Орел",
     },
     {
       url: "https://vk.com/printkiosk",

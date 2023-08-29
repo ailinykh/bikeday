@@ -75,7 +75,7 @@ export const handleContact = async (
   const text = [
     "✅ Для завершения авторизации перейдите по ссылке:",
     "",
-    `http://${host}/api/otp/${otp.password}/validate`,
+    `http://${host}/api/session/authorize?code=${otp.password}`,
   ];
   return {
     method: "sendMessage",
