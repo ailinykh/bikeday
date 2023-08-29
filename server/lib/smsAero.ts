@@ -8,11 +8,10 @@ interface SMSResponse {
   };
 }
 
-const login = process.env.SMSAERO_LOGIN;
-const password = process.env.SMSAERO_PASSWORD;
-const token = Buffer.from(`${login}:${password}`).toString(
-  "base64"
-);
+const { smsAero } = useRuntimeConfig();
+const token = Buffer.from(
+  `${smsAero.login}:${smsAero.password}`
+).toString("base64");
 
 const getSmsAeroStatus = async ({ id }: { id: string }) => {
   return await $fetch(

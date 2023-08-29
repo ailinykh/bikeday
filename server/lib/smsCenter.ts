@@ -13,9 +13,11 @@ interface SMSStatusResponse {
   last_timestamp: number;
 }
 
+const { smsc } = useRuntimeConfig();
+
 const common = {
-  login: process.env.SMSC_LOGIN,
-  psw: process.env.SMSC_PASSWORD,
+  login: smsc.login,
+  psw: smsc.password,
   charset: "utf-8",
   fmt: 3,
 };

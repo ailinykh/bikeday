@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const tokenSecret = process.env.JWT_TOKEN_SECRET;
+const config = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
   const cookie = getCookie(event, "__session");
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const user = await jwt.verify(cookie, tokenSecret);
+    const user = jwt.verify(cookie, config.tokenSecret);
 
     if (!user) {
       return;
@@ -19,6 +19,10 @@ export default defineEventHandler(async (event) => {
     console.log(user);
     event.context.user = user;
   } catch (err) {
-    console.error(err);
+    if (err == jwt.TokenExpiredError) {
+      console.info("❌ token expired");
+    } else {
+      console.error(err);
+    }
   }
 });

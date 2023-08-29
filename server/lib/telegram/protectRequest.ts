@@ -1,11 +1,12 @@
 import { H3Event, getHeaders } from "h3";
 
-const secret = process.env.TELEGRAM_BOT_SECRET;
+const config = useRuntimeConfig();
 
 export const protectRequest = (event: H3Event) => {
   const headers = getHeaders(event);
   if (
-    headers["x-telegram-bot-api-secret-token"] != secret
+    headers["x-telegram-bot-api-secret-token"] !=
+    config.telegram.botSecret
   ) {
     console.log("Bad x-telegram-bot-api-secret-token");
     throw createError({

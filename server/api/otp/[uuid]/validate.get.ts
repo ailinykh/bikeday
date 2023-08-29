@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { H3Event, getProxyRequestHeaders } from "h3";
 
 const prisma = new PrismaClient();
-const tokenSecret = process.env.JWT_TOKEN_SECRET;
+const { tokenSecret } = useRuntimeConfig();
 
 export default defineEventHandler(
   async (event: H3Event) => {
@@ -51,9 +51,11 @@ export default defineEventHandler(
       });
     }
 
-    console.log(tokenSecret);
+    if (tokenSecret.length == 0) {
+      console.error("❌ secret token is empty");
+    }
 
-    const token = await jwt.sign(
+    const token = jwt.sign(
       {
         id: user.id,
         phone: user.phone,
