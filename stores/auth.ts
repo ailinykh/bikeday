@@ -91,7 +91,6 @@ export const useAuth = defineStore("auth", {
       });
       if (!error.value) {
         this.user = undefined;
-        navigateTo("/");
       }
     },
   },

@@ -6,9 +6,10 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-const logout = () => {
+const logout = async () => {
   if (confirm("Вы действительно хотите выйти?")) {
-    auth.logout();
+    await auth.logout();
+    navigateTo("/");
   }
 };
 
