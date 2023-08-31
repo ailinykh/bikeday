@@ -24,7 +24,7 @@ export const handleStart = async (
 
   const user = await prisma.user.findFirst({
     where: {
-      telegramId: message.from.id,
+      telegramId: message.from.id.toString(),
     },
   });
 

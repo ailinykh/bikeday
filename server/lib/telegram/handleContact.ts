@@ -34,10 +34,8 @@ export const handleContact = async (
       phone: message.contact.phone_number,
     },
     update: {
-      firstName: message.contact.first_name,
-      lastName: message.contact.last_name,
       phone: message.contact.phone_number,
-      telegramId: message.contact.user_id,
+      telegramId: message.contact.user_id.toString(),
     },
     create: {
       status: "user",
@@ -45,7 +43,7 @@ export const handleContact = async (
       firstName: message.contact.first_name,
       lastName: message.contact.last_name,
       phone: message.contact.phone_number,
-      telegramId: message.contact.user_id,
+      telegramId: message.contact.user_id.toString(),
     },
   });
 
