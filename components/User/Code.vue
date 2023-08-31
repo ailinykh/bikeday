@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AuthRequest } from "~/types/user";
+import { AuthRequest } from "~/types";
 
 const props = defineProps<{
   authRequest: AuthRequest;
@@ -45,7 +45,7 @@ watch(
 </script>
 
 <template>
-  <div class="w-80 m-auto">
+  <div class="max-w-xs m-auto">
     <h2 class="text-5xl text-center font-medium py-10">
       Вход
     </h2>

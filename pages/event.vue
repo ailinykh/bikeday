@@ -1,30 +1,62 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { useAuth } from "~/stores/auth";
+import { User } from "~/types";
+import { useParticipation } from "~/stores/participation";
+import { useUser } from "~/stores/user";
 
 definePageMeta({
   middleware: ["auth"],
 });
 
-const logout = async () => {
-  if (confirm("Вы действительно хотите выйти?")) {
-    await auth.logout();
-    navigateTo("/");
+const user = useState<User>("user");
+const showProfile = computed(
+  () => user.value.firstName.length == 0
+);
+
+const userStore = useUser();
+const { loading: userLoading } = storeToRefs(userStore);
+
+const updateUser = async (obj: {
+  id: number;
+  firstName: string;
+  lastName: string;
+}) => {
+  let data = await userStore.update(obj);
+  if (data) {
+    user.value = data;
   }
 };
 
-const auth = useAuth();
-const { user } = storeToRefs(auth);
-auth.initialize();
+const event = await useEvent();
+const participationStore = useParticipation();
+const { bike, loading: participationLoading } = storeToRefs(
+  participationStore
+);
+await participationStore.initialize(event.id);
 </script>
 <template>
-  <div class="bikeday-bg-white h-screen">
-    <h1>Welcome to bikeday, {{ user?.firstName }}!</h1>
-    <button
-      class="inline-flex items-start w-full place-content-center bg-green-600 py-3 text-white font-medium disabled:opacity-75"
-      @click="logout"
-    >
-      Выйти
-    </button>
+  <div>
+    <div v-if="user">
+      <UserProfile
+        v-if="showProfile"
+        :user="user"
+        :loading="userLoading"
+        @profile:update="updateUser"
+      />
+      <EventParticipationForm
+        v-else-if="bike.length == 0"
+        :loading="participationLoading"
+        :eventId="event.id"
+        @participation="participationStore.create"
+      />
+      <EventParticipation
+        v-else
+        :participation="participationStore"
+        :user="user"
+      />
+    </div>
+    <div v-else>
+      <Loading />
+    </div>
   </div>
 </template>

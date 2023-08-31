@@ -14,7 +14,7 @@ const phone = ref("");
 </script>
 
 <template>
-  <div class="w-80 m-auto">
+  <div class="max-w-xs m-auto">
     <h2 class="text-5xl text-center font-medium py-10">
       Вход
     </h2>
