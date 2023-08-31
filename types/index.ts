@@ -11,3 +11,11 @@ export type User = {
   firstName: string;
   lastName: string;
 };
+
+export type Participation = {
+  bike: string;
+  district: string;
+  code: string;
+  band: string;
+  bandBy: number;
+};
