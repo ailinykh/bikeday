@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { H3Event } from "h3";
-import { User } from "~/types/user";
+import { User } from "~/types";
 
 const { tokenSecret } = useRuntimeConfig();
 
@@ -23,12 +23,14 @@ export const createSession = (
     },
     tokenSecret,
     {
-      expiresIn: 3600,
+      expiresIn: 86400 * 60,
     }
   );
   setCookie(event, "__session", token);
+  setCookie(event, "user_id", id.toString());
 };
 
 export const destroySession = (event: H3Event) => {
   deleteCookie(event, "__session");
+  deleteCookie(event, "user_id");
 };
