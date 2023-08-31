@@ -49,7 +49,6 @@ export default defineEventHandler(
             status: "user",
             firstName: "",
             lastName: "",
-            gender: "",
           },
         });
       }

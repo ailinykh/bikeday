@@ -4,12 +4,12 @@ import { useAuth } from "~/stores/auth";
 
 const telegramLoginUrl = ref<string | undefined>();
 const auth = useAuth();
-const { authRequest, loading, errorMessage, user } =
+const { authRequest, loading, errorMessage } =
   storeToRefs(auth);
 
-await auth.initialize();
+const user = useState("user");
 
-if (user?.value) {
+if (user.value) {
   navigateTo(`/event`);
 }
 
@@ -20,7 +20,7 @@ if (data.value) {
 </script>
 
 <template>
-  <div class="bikeday-bg-white h-screen">
+  <div>
     <UserCode
       v-if="authRequest"
       :loading="loading"

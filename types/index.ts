@@ -8,14 +8,14 @@ export type User = {
   id: number;
   status: string;
   phone: string;
+  gender: string | null;
   firstName: string;
   lastName: string;
 };
 
-export type Participation = {
+export interface IParticipation {
   bike: string;
   district: string;
-  code: string;
-  band: string;
-  bandBy: number;
-};
+  band: string | null;
+  bandBy: number | null;
+}

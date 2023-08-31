@@ -1,8 +1,6 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  const { data } = await useFetch("/api/session", {
-    headers: useRequestHeaders(["cookie"]),
-  });
-  if (!data.value) {
+  const user = useState("user");
+  if (!user.value) {
     return navigateTo(`/login?redirectTo=${to.path}`);
   }
 });

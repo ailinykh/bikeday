@@ -1,12 +1,10 @@
 import { defineStore } from "pinia";
-import { AuthRequest, User } from "~/types/user";
+import { AuthRequest, User } from "~/types";
 
 type AuthState = {
   authRequest?: AuthRequest;
   errorMessage?: string;
   loading: boolean;
-  initialized: boolean;
-  user?: User;
 };
 
 const localize = (errorMessage: string): string => {
@@ -29,20 +27,9 @@ export const useAuth = defineStore("auth", {
       authRequest: undefined,
       errorMessage: undefined,
       loading: false,
-      initialized: false,
-      user: undefined,
     };
   },
   actions: {
-    async initialize() {
-      if (this.initialized) {
-        return;
-      }
-      this.initialized = true;
-      const { data } = await useFetch<User>("/api/session");
-      this.user = data.value || undefined;
-    },
-
     async login(phone: string) {
       this.loading = true;
       this.errorMessage = undefined;
@@ -81,7 +68,8 @@ export const useAuth = defineStore("auth", {
         const message = error.value.statusMessage || "";
         this.errorMessage = localize(message);
       } else if (data.value) {
-        this.user = data.value;
+        // assume user set by middleware through `useState`
+        navigateTo("/event");
       }
     },
 
@@ -89,8 +77,8 @@ export const useAuth = defineStore("auth", {
       const { error } = await useLazyFetch("/api/session", {
         method: "DELETE",
       });
-      if (!error.value) {
-        this.user = undefined;
+      if (error.value) {
+        throw error.value;
       }
     },
   },

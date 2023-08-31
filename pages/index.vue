@@ -11,6 +11,15 @@
           <strong class="text-rose-600">10 сентября</strong>
         </p>
         <NuxtLink
+          v-if="user"
+          to="/event"
+          :hidden="0"
+          class="rounded-none bg-green-600 px-5 py-3 text-white font-medium"
+        >
+          Личный кабинет
+        </NuxtLink>
+        <NuxtLink
+          v-else
           to="/login"
           :hidden="0"
           class="rounded-none bg-green-600 px-5 py-3 text-white font-medium"
@@ -41,7 +50,12 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  layout: "custom",
+});
+
 const event = await useEvent();
+const user = useState("user");
 
 const sponsors = [
   [

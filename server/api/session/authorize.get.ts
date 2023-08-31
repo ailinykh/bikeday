@@ -47,7 +47,7 @@ export default defineEventHandler(
 
     const user = await prisma.user.findFirst({
       where: {
-        telegramId: Number(otp.context),
+        telegramId: otp.context,
       },
     });
 

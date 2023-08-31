@@ -24,8 +24,8 @@ model EventParticipation {
     userId    Int
     district  String
     bike      String
-    band      String
-    bandBy    Int
+    band      String?
+    bandBy    Int?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
@@ -59,7 +59,7 @@ model User {
     telegramId         String?              @unique
     firstName          String
     lastName           String
-    gender             String
+    gender             String?
     birthday           DateTime?
     createdAt          DateTime             @default(now())
     updatedAt          DateTime             @updatedAt

@@ -4,8 +4,8 @@ CREATE TABLE `EventParticipation` (
     `userId` INTEGER NOT NULL,
     `district` VARCHAR(191) NOT NULL,
     `bike` VARCHAR(191) NOT NULL,
-    `band` VARCHAR(191) NOT NULL,
-    `bandBy` INTEGER NOT NULL,
+    `band` VARCHAR(191) NULL,
+    `bandBy` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

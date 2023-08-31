@@ -39,7 +39,6 @@ export const handleContact = async (
     },
     create: {
       status: "user",
-      gender: "",
       firstName: message.contact.first_name,
       lastName: message.contact.last_name,
       phone: message.contact.phone_number,
