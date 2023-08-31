@@ -5,6 +5,8 @@ export default defineNuxtConfig({
     telegram: {
       botSecret: process.env.TELEGRAM_BOT_SECRET,
       botUsername: process.env.TELEGRAM_BOT_USERNAME,
+      botToken: process.env.TELEGRAM_BOT_TOKEN,
+      supportChatId: process.env.TELEGRAM_SUPPORT_CHAT_ID,
     },
     smsc: {
       login: process.env.SMSC_LOGIN,

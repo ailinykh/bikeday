@@ -30,9 +30,12 @@ export type TelegramMessage = {
   text?: string;
   contact?: TelegramContact;
   entities?: [TelegramEntity];
+  reply_to_message?: TelegramMessage;
+  forward_from?: TelegramUser;
 };
 
 export type TelegramUpdate = {
   update_id: number;
-  message: TelegramMessage;
+  message?: TelegramMessage;
+  edited_message?: TelegramMessage;
 };
