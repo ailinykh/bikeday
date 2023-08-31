@@ -8,7 +8,7 @@ export const protectRequest = (event: H3Event) => {
     headers["x-telegram-bot-api-secret-token"] !=
     config.telegram.botSecret
   ) {
-    console.log("Bad x-telegram-bot-api-secret-token");
+    console.warn("Bad x-telegram-bot-api-secret-token");
     throw createError({
       statusCode: 400,
       statusMessage: "Bad Request",

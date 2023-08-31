@@ -20,7 +20,7 @@ export default async (event: H3Event) => {
     },
   });
   if (count > REQUEST_LIMIT) {
-    console.log(`Too Many Requests for ${ipAddress}`);
+    console.warn(`Too Many Requests for ${ipAddress}`);
     throw createError({
       statusCode: 429,
       statusMessage: "Too Many Requests",

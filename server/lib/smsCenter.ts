@@ -71,7 +71,7 @@ const sendSmsc = async ({
       },
     }
   );
-  console.log(
+  console.info(
     "💬 smsc",
     phone,
     "id:",

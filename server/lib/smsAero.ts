@@ -51,7 +51,7 @@ const sendSmsAero = async ({
     }
   );
 
-  console.log(
+  console.info(
     "💬 sms aero",
     phone,
     "success:",
