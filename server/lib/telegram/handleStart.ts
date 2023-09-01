@@ -30,7 +30,10 @@ export const handleStart = async (
 
   if (user) {
     // User already exists
-    const { host } = getHeaders(event);
+    const host =
+      headers["x-forwarded-host"] ||
+      headers["x-forwarded-server"] ||
+      headers["host"];
     // const port = headers["x-forwarded-port"]
     //   ? ":" + headers["x-forwarded-port"]
     //   : "";

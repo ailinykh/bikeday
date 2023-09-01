@@ -68,7 +68,11 @@ export const handleContact = async (
   }
 
   // User came from website, need to redirect
-  const { host } = getHeaders(event);
+  const headers = getHeaders(event);
+  const host =
+    headers["x-forwarded-host"] ||
+    headers["x-forwarded-server"] ||
+    headers["host"];
   const text = [
     "✅ Для завершения авторизации перейдите по ссылке:",
     "",
