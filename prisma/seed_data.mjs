@@ -1,3 +1,23 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+let users = [];
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const fileName = path.join(__dirname, "users.json");
+
+if (fs.existsSync(fileName)) {
+  const data = fs.readFileSync(fileName);
+  users = JSON.parse(data);
+  console.info(
+    `read ${users.length} users from ${fileName}`
+  );
+} else {
+  console.warn(`${fileName} not found`);
+}
+
 const events = [
   {
     title: "Велодень 2012",
@@ -41,4 +61,4 @@ const events = [
   },
 ];
 
-export default events;
+export { events, users };

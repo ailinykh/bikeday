@@ -55,12 +55,13 @@ model OneTimePasswordLog {
 model User {
     id                 Int                  @id @default(autoincrement())
     status             String
-    phone              String               @unique
+    phone              String?              @unique
     telegramId         String?              @unique
     firstName          String
     lastName           String
     gender             String?
     birthday           DateTime?
+    parentId           Int?
     createdAt          DateTime             @default(now())
     updatedAt          DateTime             @updatedAt
     EventParticipation EventParticipation[]

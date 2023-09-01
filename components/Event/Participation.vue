@@ -46,9 +46,7 @@ const props = defineProps<{
           <td
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
           >
-            {{
-              participation.band ?? "пока что неизвестен"
-            }}
+            {{ participation.band ?? "пока неизвестен" }}
           </td>
         </tr>
       </tbody>
