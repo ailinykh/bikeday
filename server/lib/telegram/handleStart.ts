@@ -47,6 +47,9 @@ export const handleStart = async (
       chat_id: message.chat.id,
       text: text.join("\n"),
       disable_web_page_preview: true,
+      reply_markup: {
+        remove_keyboard: true,
+      },
     };
   }
 

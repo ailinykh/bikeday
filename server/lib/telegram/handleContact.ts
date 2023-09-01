@@ -64,6 +64,9 @@ export const handleContact = async (
       method: "sendMessage",
       chat_id: message.chat.id,
       text: "✅ Авторизация пройдена успешно!",
+      reply_markup: {
+        remove_keyboard: true,
+      },
     };
   }
 
@@ -83,5 +86,8 @@ export const handleContact = async (
     chat_id: message.chat.id,
     text: text.join("\n"),
     disable_web_page_preview: true,
+    reply_markup: {
+      remove_keyboard: true,
+    },
   };
 };
