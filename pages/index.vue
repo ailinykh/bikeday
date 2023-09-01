@@ -2,10 +2,10 @@
   <div class="bikeday-bg-white">
     <div class="container mx-auto text-center">
       <section class="p-10">
-        <h1 class="text-6xl font-medium py-10">
+        <h1 class="py-10 text-6xl font-medium">
           Орловский {{ event.title }}
         </h1>
-        <p class="text-xl mb-14">
+        <p class="mb-14 text-xl">
           Десятый "Велодень" в Орле назначен на
           <!-- TODO: event.date -->
           <strong class="text-rose-600">10 сентября</strong>
@@ -14,7 +14,7 @@
           v-if="user"
           to="/event"
           :hidden="0"
-          class="rounded-none bg-green-600 px-5 py-3 text-white font-medium"
+          class="rounded-none bg-green-600 px-5 py-3 font-medium text-white"
         >
           Личный кабинет
         </NuxtLink>
@@ -22,13 +22,13 @@
           v-else
           to="/login"
           :hidden="0"
-          class="rounded-none bg-green-600 px-5 py-3 text-white font-medium"
+          class="rounded-none bg-green-600 px-5 py-3 font-medium text-white"
         >
           Регистрация
         </NuxtLink>
       </section>
-      <section class="p-5 my-5">
-        <h2 class="text-5xl font-medium py-10">
+      <section class="my-5 p-5">
+        <h2 class="py-10 text-5xl font-medium">
           Велодню помогают
         </h2>
         <div

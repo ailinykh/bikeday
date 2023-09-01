@@ -26,7 +26,7 @@ export const useParticipation = defineStore(
         }
         this.initialized = true;
         const { data } = await useFetch<IParticipation>(
-          `/api/event/${eventId}/participation`
+          `/api/event/${eventId}/participation`,
         );
         if (data.value) {
           this.band = data.value.band;
@@ -55,7 +55,7 @@ export const useParticipation = defineStore(
               bike,
               district,
             },
-          }
+          },
         );
 
         this.loading = false;
@@ -68,5 +68,5 @@ export const useParticipation = defineStore(
         }
       },
     },
-  }
+  },
 );

@@ -12,7 +12,7 @@ if (fs.existsSync(fileName)) {
   const data = fs.readFileSync(fileName);
   users = JSON.parse(data);
   console.info(
-    `read ${users.length} users from ${fileName}`
+    `read ${users.length} users from ${fileName}`,
   );
 } else {
   console.warn(`${fileName} not found`);

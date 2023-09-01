@@ -34,14 +34,16 @@ const data = errors[props.error.statusCode] || errors[500];
 
 <template>
   <main class="bikeday-bg-gray h-screen">
-    <div class="text-center py-10">
+    <div class="py-10 text-center">
       <h2 class="text-4xl">{{ data.title }}</h2>
       <img :src="data.image" class="m-auto p-10" />
       <div class="text-xl">
         <p v-for="p in data.text" :key="p" v-html="p" />
         <p>
           Попробуйте начать
-          <NuxtLink to="/" class="font-semibold">сначала</NuxtLink>.
+          <NuxtLink to="/" class="font-semibold"
+            >сначала</NuxtLink
+          >.
         </p>
       </div>
     </div>

@@ -10,7 +10,7 @@ interface SMSResponse {
 
 const { smsAero } = useRuntimeConfig();
 const token = Buffer.from(
-  `${smsAero.login}:${smsAero.password}`
+  `${smsAero.login}:${smsAero.password}`,
 ).toString("base64");
 
 const getSmsAeroStatus = async ({ id }: { id: string }) => {
@@ -23,7 +23,7 @@ const getSmsAeroStatus = async ({ id }: { id: string }) => {
       params: {
         id,
       },
-    }
+    },
   );
 };
 
@@ -48,7 +48,7 @@ const sendSmsAero = async ({
         sign: "SMS Aero",
         text,
       },
-    }
+    },
   );
 
   console.info(
@@ -61,7 +61,7 @@ const sendSmsAero = async ({
     "status:",
     status,
     "extendStatus",
-    extendStatus
+    extendStatus,
   );
   return { id, status };
 };

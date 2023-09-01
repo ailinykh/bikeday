@@ -6,7 +6,7 @@ const { tokenSecret } = useRuntimeConfig();
 
 export const createSession = (
   event: H3Event,
-  user: User
+  user: User,
 ) => {
   if (tokenSecret.length == 0) {
     console.error("❌ secret token is empty");
@@ -24,7 +24,7 @@ export const createSession = (
     tokenSecret,
     {
       expiresIn: 86400 * 60,
-    }
+    },
   );
   setCookie(event, "__session", token);
   setCookie(event, "user_id", id.toString());

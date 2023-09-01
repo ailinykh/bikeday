@@ -21,5 +21,5 @@ export default defineEventHandler(
         eventId: id,
       },
     });
-  }
+  },
 );

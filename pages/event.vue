@@ -10,7 +10,7 @@ definePageMeta({
 
 const user = useState<User>("user");
 const showProfile = computed(
-  () => user.value.firstName.length == 0
+  () => user.value.firstName.length == 0,
 );
 
 const userStore = useUser();
@@ -30,7 +30,7 @@ const updateUser = async (obj: {
 const event = await useEvent();
 const participationStore = useParticipation();
 const { bike, loading: participationLoading } = storeToRefs(
-  participationStore
+  participationStore,
 );
 await participationStore.initialize(event.id);
 </script>

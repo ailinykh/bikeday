@@ -19,8 +19,8 @@ export default async (phone: string) => {
   if (password) {
     const seconds = Math.floor(
       Math.abs(
-        password.createdAt.getTime() - timeout.getTime()
-      ) / 1000
+        password.createdAt.getTime() - timeout.getTime(),
+      ) / 1000,
     );
     throw createError({
       statusCode: 429,

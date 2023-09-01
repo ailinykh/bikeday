@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const supportChatId = parseInt(
-    config.telegram.supportChatId
+    config.telegram.supportChatId,
   );
   const { reply_to_message, chat, text } = message;
   if (

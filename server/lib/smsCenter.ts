@@ -27,7 +27,7 @@ const getSmscBalance = async () => {
     "https://smsc.ru/sys/balance.php",
     {
       params: common,
-    }
+    },
   );
 };
 
@@ -46,7 +46,7 @@ const getSmscStatus = async ({
         phone,
         id,
       },
-    }
+    },
   );
 };
 
@@ -69,7 +69,7 @@ const sendSmsc = async ({
         ...common,
         ...data,
       },
-    }
+    },
   );
   console.info(
     "💬 smsc",
@@ -79,7 +79,7 @@ const sendSmsc = async ({
     "cnt:",
     cnt,
     "error:",
-    error
+    error,
   );
 
   return { cnt, error };

@@ -41,10 +41,10 @@ export default defineEventHandler(
     const userAgent = headers["user-agent"];
     const ipAddress = headers["x-forwarded-for"];
     const password = Math.floor(
-      100000 + Math.random() * 900000
+      100000 + Math.random() * 900000,
     ).toString();
     console.info(
-      `creating login code ${password} for ${phone} ip: ${ipAddress}`
+      `creating login code ${password} for ${phone} ip: ${ipAddress}`,
     );
 
     const { context, provider, createdAt } =
@@ -88,5 +88,5 @@ export default defineEventHandler(
     }
 
     return { context, provider, createdAt };
-  }
+  },
 );

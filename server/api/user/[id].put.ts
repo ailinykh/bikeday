@@ -18,7 +18,7 @@ export default defineEventHandler(
     // TODO: status helper
     if (user.status == "user" && id != user.id) {
       console.warn(
-        `unauthorized access: id: ${id}, user.id: ${user.id}`
+        `unauthorized access: id: ${id}, user.id: ${user.id}`,
       );
       throw createError({
         statusCode: 403,
@@ -37,5 +37,5 @@ export default defineEventHandler(
         lastName,
       },
     });
-  }
+  },
 );

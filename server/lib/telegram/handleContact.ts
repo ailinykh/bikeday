@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export const handleContact = async (
   message: TelegramMessage,
-  event: H3Event
+  event: H3Event,
 ) => {
   if (!message.contact) {
     throw createError({
@@ -18,8 +18,8 @@ export const handleContact = async (
   if (message.contact.user_id != message.from.id) {
     console.info(
       `❗️ Authorization mismatch for ${JSON.stringify(
-        message.from
-      )} with ${JSON.stringify(message.contact)}`
+        message.from,
+      )} with ${JSON.stringify(message.contact)}`,
     );
 
     return {

@@ -1,12 +1,13 @@
 import { Event } from "@prisma/client";
 
 export default async () => {
-  const { data, error } = await useFetch<Event>(`/api/event`);
+  const { data, error } =
+    await useFetch<Event>(`/api/event`);
 
   if (error.value) {
     throw createError({
       ...error.value,
-      statusMessage: `Could not fetch actual event`
+      statusMessage: `Could not fetch actual event`,
     });
   }
 

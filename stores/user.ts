@@ -13,7 +13,7 @@ export const useUser = defineStore("user", () => {
     initialized.value = true;
     const id = useCookie("user_id");
     const { data } = await useFetch<User>(
-      `/api/user/${id.value}`
+      `/api/user/${id.value}`,
     );
     user.value = data.value;
   };
@@ -34,7 +34,7 @@ export const useUser = defineStore("user", () => {
       {
         method: "PUT",
         body: { firstName, lastName },
-      }
+      },
     );
 
     loading.value = false;

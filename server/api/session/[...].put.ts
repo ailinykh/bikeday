@@ -31,7 +31,7 @@ export default defineEventHandler(
             gte: timeout,
           },
         },
-      }
+      },
     );
 
     // Authorization succeeded
@@ -75,5 +75,5 @@ export default defineEventHandler(
       statusCode: 403,
       statusMessage: "Code invalid or expired",
     });
-  }
+  },
 );

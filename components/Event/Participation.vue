@@ -9,7 +9,7 @@ const props = defineProps<{
 
 <template>
   <div>
-    <h2 class="text-5xl text-center font-medium py-10">
+    <h2 class="py-10 text-center text-5xl font-medium">
       Ура! Вы
       {{
         user.gender == "female" ? "участница" : "участник"
@@ -20,10 +20,10 @@ const props = defineProps<{
 
   <div class="relative overflow-x-auto">
     <table
-      class="max-w-xl mx-auto text-sm text-left text-gray-500 dark:text-gray-400"
+      class="mx-auto max-w-xl text-left text-sm text-gray-500 dark:text-gray-400"
     >
       <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
       >
         <tr>
           <th scope="col" class="px-6 py-3">Район</th>
@@ -35,7 +35,7 @@ const props = defineProps<{
       </thead>
       <tbody>
         <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+          class="border-b bg-white dark:border-gray-700 dark:bg-gray-800"
         >
           <td class="px-6 py-4">
             {{ participation.district }}
@@ -44,14 +44,14 @@ const props = defineProps<{
             {{ participation.bike }}
           </td>
           <td
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
           >
             {{ participation.band ?? "пока неизвестен" }}
           </td>
         </tr>
       </tbody>
     </table>
-    <p class="text-center py-12">
+    <p class="py-12 text-center">
       Регистрация в конкурсах будет доступна чуть позже
     </p>
   </div>

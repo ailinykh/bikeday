@@ -3,7 +3,7 @@ import { H3Event } from "h3";
 
 export const handlePing = async (
   message: TelegramMessage,
-  event: H3Event
+  event: H3Event,
 ) => {
   return {
     method: "sendMessage",

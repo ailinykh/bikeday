@@ -7,7 +7,7 @@ export type AuthRequest = {
 export type User = {
   id: number;
   status: string;
-  phone: string;
+  phone: string | null;
   gender: string | null;
   firstName: string;
   lastName: string;

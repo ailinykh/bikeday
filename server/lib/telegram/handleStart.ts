@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export const handleStart = async (
   message: TelegramMessage,
-  event: H3Event
+  event: H3Event,
 ) => {
   const password =
     message.text?.split(" ")[1] || randomUUID();

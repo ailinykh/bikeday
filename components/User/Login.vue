@@ -14,8 +14,8 @@ const phone = ref("");
 </script>
 
 <template>
-  <div class="max-w-xs m-auto">
-    <h2 class="text-5xl text-center font-medium py-10">
+  <div class="m-auto max-w-xs">
+    <h2 class="py-10 text-center text-5xl font-medium">
       Вход
     </h2>
     <form
@@ -31,7 +31,7 @@ const phone = ref("");
         <input
           type="tel"
           required
-          class="w-full border-gray-300 rounded-lg focus:border-green-600 focus:ring-green-600"
+          class="w-full rounded-lg border-gray-300 focus:border-green-600 focus:ring-green-600"
           id="phone"
           placeholder="+7 xxx-xxx-xx-xx"
           v-maska
@@ -42,7 +42,7 @@ const phone = ref("");
         />
         <p
           v-if="errorMessage"
-          class="text-red-500 font-medium"
+          class="font-medium text-red-500"
         >
           {{ errorMessage }}
         </p>
@@ -51,7 +51,7 @@ const phone = ref("");
         <button
           type="submit"
           :disabled="loading"
-          class="inline-flex items-start w-full place-content-center bg-green-600 py-3 text-white font-medium disabled:opacity-75"
+          class="inline-flex w-full place-content-center items-start bg-green-600 py-3 font-medium text-white disabled:opacity-75"
         >
           <Loading v-if="loading" class="h-5 w-5" />
           Получить код
@@ -64,7 +64,7 @@ const phone = ref("");
             type="button"
             :disabled="loading"
             :to="telegramLoginUrl"
-            class="inline-flex items-center w-full place-content-center bg-blue-400 py-3 text-white font-medium disabled:opacity-75"
+            class="inline-flex w-full place-content-center items-center bg-blue-400 py-3 font-medium text-white disabled:opacity-75"
           >
             <i
               ><font-awesome-icon

@@ -59,7 +59,7 @@ export const useAuth = defineStore("auth", {
         {
           method: "PUT",
           body: { code, phone },
-        }
+        },
       );
 
       this.loading = false;

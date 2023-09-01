@@ -12,10 +12,10 @@ defineEmits(["participation"]);
 </script>
 
 <template>
-  <h2 class="text-5xl text-center font-medium py-10">
+  <h2 class="py-10 text-center text-5xl font-medium">
     Анкета участника
   </h2>
-  <div class="max-w-xs m-auto">
+  <div class="m-auto max-w-xs">
     <form
       @submit.prevent="
         () =>
@@ -34,7 +34,7 @@ defineEmits(["participation"]);
           >Район</label
         >
         <select
-          class="w-full border-gray-300 rounded-lg focus:border-green-600 focus:ring-green-600"
+          class="w-full rounded-lg border-gray-300 focus:border-green-600 focus:ring-green-600"
           aria-label="Выберите район"
           v-model="district"
         >
@@ -55,13 +55,13 @@ defineEmits(["participation"]);
         <input
           type="text"
           required
-          class="w-full border-gray-300 rounded-lg focus:border-green-600 focus:ring-green-600"
+          class="w-full rounded-lg border-gray-300 focus:border-green-600 focus:ring-green-600"
           id="bike"
           v-model="bike"
         />
         <p
           v-if="errorMessage"
-          class="text-red-500 font-medium"
+          class="font-medium text-red-500"
         >
           {{ errorMessage }}
         </p>
@@ -70,7 +70,7 @@ defineEmits(["participation"]);
         <button
           type="submit"
           :disabled="loading"
-          class="inline-flex items-start w-full place-content-center bg-green-600 px-5 py-3 text-white font-medium disabled:opacity-75"
+          class="inline-flex w-full place-content-center items-start bg-green-600 px-5 py-3 font-medium text-white disabled:opacity-75"
         >
           <Loading v-if="loading" class="h-5 w-5" />
           Отправить

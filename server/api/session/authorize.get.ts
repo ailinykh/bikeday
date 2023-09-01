@@ -61,5 +61,5 @@ export default defineEventHandler(
     createSession(event, user);
 
     return sendRedirect(event, "/event");
-  }
+  },
 );
