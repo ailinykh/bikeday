@@ -1,7 +1,7 @@
 <template>
   <div class="bikeday-bg-white">
     <div class="container mx-auto text-center">
-      <section class="mb-14 p-10">
+      <section class="p-10">
         <h1 class="py-10 text-6xl font-medium">
           Орловский {{ event.title }}
         </h1>
@@ -12,7 +12,7 @@
             >к концу сентября</strong
           >
         </p>
-        <p>Подробности будут чуть позже</p>
+        <p class="my-8 text-lg">Подробности чуть позже</p>
         <NuxtLink
           v-if="user"
           to="/event"
