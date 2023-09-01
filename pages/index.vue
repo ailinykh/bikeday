@@ -1,15 +1,18 @@
 <template>
   <div class="bikeday-bg-white">
     <div class="container mx-auto text-center">
-      <section class="p-10">
+      <section class="mb-14 p-10">
         <h1 class="py-10 text-6xl font-medium">
           Орловский {{ event.title }}
         </h1>
-        <p class="mb-14 text-xl">
-          Десятый "Велодень" в Орле назначен на
+        <p class="my-8 text-xl">
+          Десятый "Велодень" в Орле пройдёт ближе
           <!-- TODO: event.date -->
-          <strong class="text-rose-600">10 сентября</strong>
+          <strong class="text-rose-600"
+            >к концу сентября</strong
+          >
         </p>
+        <p>Подробности будут чуть позже</p>
         <NuxtLink
           v-if="user"
           to="/event"
@@ -18,14 +21,14 @@
         >
           Личный кабинет
         </NuxtLink>
-        <NuxtLink
+        <!-- <NuxtLink
           v-else
           to="/login"
           :hidden="0"
           class="rounded-none bg-green-600 px-5 py-3 font-medium text-white"
         >
           Регистрация
-        </NuxtLink>
+        </NuxtLink> -->
       </section>
       <section class="my-5 p-5">
         <h2 class="py-10 text-5xl font-medium">
