@@ -1,4 +1,8 @@
 <script setup lang="ts">
+useHead({
+  title: "Вход",
+});
+
 import { storeToRefs } from "pinia";
 import { useAuth } from "~/stores/auth";
 

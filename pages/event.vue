@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { User } from "~/types";
-import { useParticipation } from "~/stores/participation";
-import { useUser } from "~/stores/user";
+useHead({
+  title: "Регистрация",
+});
 
 definePageMeta({
   middleware: ["auth"],
 });
+
+import { storeToRefs } from "pinia";
+import { User } from "~/types";
+import { useParticipation } from "~/stores/participation";
+import { useUser } from "~/stores/user";
 
 const user = useState<User>("user");
 const showProfile = computed(
