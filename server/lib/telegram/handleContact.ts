@@ -18,8 +18,8 @@ export const handleContact = async (
   if (message.contact.user_id != message.from.id) {
     console.info(
       `❗️ Authorization mismatch for ${JSON.stringify(
-        message.from,
-      )} with ${JSON.stringify(message.contact)}`,
+        message,
+      )}`,
     );
 
     return {
@@ -76,18 +76,20 @@ export const handleContact = async (
     headers["x-forwarded-host"] ||
     headers["x-forwarded-server"] ||
     headers["host"];
-  const text = [
-    "✅ Для завершения авторизации перейдите по ссылке:",
-    "",
-    `http://${host}/api/session/authorize?code=${otp.password}`,
-  ];
+
   return {
     method: "sendMessage",
     chat_id: message.chat.id,
-    text: text.join("\n"),
-    disable_web_page_preview: true,
+    text: "✅ Для завершения авторизации нажмите на кнопку:",
     reply_markup: {
-      remove_keyboard: true,
+      inline_keyboard: [
+        [
+          {
+            text: "🌐 Перейти на сайт",
+            url: `https://${host}/api/session/authorize?code=${otp.password}`,
+          },
+        ],
+      ],
     },
   };
 };
