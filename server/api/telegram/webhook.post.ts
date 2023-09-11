@@ -1,26 +1,23 @@
-import { TelegramUpdate } from "~/types/telegram";
+import { TelegramContext } from "~/types/telegram";
 import {
-  protectRequest,
   handleStart,
   handleContact,
-  handlePing,
-} from "../../lib/telegram";
+} from "~/server/lib/telegram";
 
 const config = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
-  protectRequest(event);
-
-  const update = await readBody<TelegramUpdate>(event);
+  const { update }: TelegramContext =
+    event.context.telegram;
   const { message } = update;
+
+  // console.debug("💬", update);
 
   if (!message) {
     // ignore technical updates
     // TODO: respect `edited_message` for support chat
     return;
   }
-
-  // console.debug("💬", update);
 
   if (message.text?.startsWith("/start")) {
     return handleStart(message, event);

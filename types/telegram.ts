@@ -34,8 +34,19 @@ export type TelegramMessage = {
   forward_from?: TelegramUser;
 };
 
+export type TelegramCallbackQuery = {
+  data: string;
+  from: TelegramUser;
+  message: TelegramMessage;
+};
+
 export type TelegramUpdate = {
   update_id: number;
   message?: TelegramMessage;
   edited_message?: TelegramMessage;
+  callback_query?: TelegramCallbackQuery;
+};
+
+export type TelegramContext = {
+  update: TelegramUpdate;
 };
