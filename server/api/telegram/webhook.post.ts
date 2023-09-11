@@ -32,15 +32,21 @@ export default defineEventHandler(async (event) => {
 
   const chat_id = parseInt(config.telegram.supportChatId);
   const { reply_to_message, chat, text } = message;
-  if (
-    reply_to_message &&
-    reply_to_message.forward_from &&
-    chat.id == chat_id
-  ) {
+  if (reply_to_message && chat.id == chat_id) {
     // reply from support
+    const match =
+      reply_to_message.text?.match(/^.+\[(\d+)\]/);
+    if (!match) {
+      return {
+        method: "sendMessage",
+        chat_id,
+        text: `❌ chat_id not found in "${reply_to_message.text}"`,
+      };
+    }
+
     return {
       method: "sendMessage",
-      chat_id: reply_to_message.forward_from.id,
+      chat_id: match[1],
       text,
     };
   }
@@ -50,11 +56,12 @@ export default defineEventHandler(async (event) => {
     return;
   }
 
+  const { id, first_name, last_name } = message.from;
   // initiate support dialog
   return {
-    method: "forwardMessage",
+    method: "sendMessage",
     chat_id,
-    from_chat_id: message.chat.id,
-    message_id: message.message_id,
+    text: `💬 <b><a href="tg://user?id=${id}">${first_name} ${last_name}</a></b> [${id}]:\n${text}`,
+    parse_mode: "HTML",
   };
 });
