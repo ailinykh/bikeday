@@ -4,7 +4,7 @@ const config = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
   const uuid = randomUUID();
-  const url = `https://t.me/${config.telegram.botUsername}?start=${uuid}`;
+  const url = `tg://resolve?domain=${config.telegram.botUsername}&start=${uuid}`;
   return {
     url,
   };
