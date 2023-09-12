@@ -54,11 +54,14 @@ export default defineEventHandler(async (event) => {
   }
 
   const { id, first_name, last_name } = message.from;
+  const displayName = last_name
+    ? first_name + " " + last_name
+    : first_name;
   // initiate support dialog
   return {
     method: "sendMessage",
     chat_id,
-    text: `💬 <b><a href="tg://user?id=${id}">${first_name} ${last_name}</a></b> [${id}]:\n${text}`,
+    text: `💬 <b><a href="tg://user?id=${id}">${displayName}</a></b> [${id}]:\n${text}`,
     parse_mode: "HTML",
   };
 });
