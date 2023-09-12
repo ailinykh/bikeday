@@ -22,13 +22,7 @@ export const handleStart = async (
     },
   });
 
-  const user = await prisma.user.findFirst({
-    where: {
-      telegramId: message.from.id.toString(),
-    },
-  });
-
-  if (user) {
+  if (event.context.user) {
     // User already exists
     const host =
       headers["x-forwarded-host"] ||
