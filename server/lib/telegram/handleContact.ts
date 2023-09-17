@@ -86,7 +86,7 @@ export const handleContact = async (
         [
           {
             text: "🌐 Перейти на сайт",
-            url: `https://${host}/api/session/authorize?code=${otp.password}`,
+            url: `https://${host}/api/session/authorize?payload=${otp.password}`,
           },
         ],
       ],

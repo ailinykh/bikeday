@@ -1,3 +1,8 @@
+export type TelegramAuthRequest = {
+  url: string;
+  payload: string;
+};
+
 export type AuthRequest = {
   provider: string;
   context: string;

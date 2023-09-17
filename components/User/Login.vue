@@ -1,16 +1,46 @@
 <script setup lang="ts">
+import type { PropType } from "vue";
+import { TelegramAuthRequest } from "~/types";
+
 const props = defineProps({
   loading: {
     type: Boolean,
     defaultValue: false,
   },
   errorMessage: String,
-  telegramLoginUrl: String,
+  telegram: Object as PropType<TelegramAuthRequest>,
 });
 
 defineEmits(["login:phone"]);
 
 const phone = ref("");
+
+const telegramLogin = async () => {
+  const { telegram } = props;
+  if (!telegram) {
+    return;
+  }
+
+  navigateTo(telegram.url, { external: true });
+  setTimeout(async () => {
+    await checkStatus(telegram.payload);
+  }, 5000);
+};
+
+const checkStatus = async (payload: string) => {
+  const { error } = await useFetch(
+    `/api/session/authorize?payload=${payload}&redirect=false`,
+  );
+
+  if (error.value) {
+    console.log(`❌ ${error.value.statusMessage}`);
+    setTimeout(async () => {
+      await checkStatus(payload);
+    }, 1000);
+  } else {
+    navigateTo("/event");
+  }
+};
 </script>
 
 <template>
@@ -57,13 +87,13 @@ const phone = ref("");
           Получить код
         </button>
       </div>
-      <div v-if="telegramLoginUrl">
+      <div v-if="telegram">
         <p class="text-center">либо другим способом</p>
         <div class="my-4">
-          <NuxtLink
+          <button
             type="button"
+            :onClick="telegramLogin"
             :disabled="loading"
-            :to="telegramLoginUrl"
             class="inline-flex w-full place-content-center items-center bg-blue-400 py-3 font-medium text-white disabled:opacity-75"
           >
             <i
@@ -72,7 +102,7 @@ const phone = ref("");
                 icon="fa-brands fa-telegram"
             /></i>
             Войти через Telegram
-          </NuxtLink>
+          </button>
         </div>
       </div>
     </form>

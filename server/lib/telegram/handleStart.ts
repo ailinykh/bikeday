@@ -40,7 +40,7 @@ export const handleStart = async (
           [
             {
               text: "🌐 Перейти на сайт",
-              url: `https://${host}/api/session/authorize?code=${password}`,
+              url: `https://${host}/api/session/authorize?payload=${password}`,
             },
           ],
         ],

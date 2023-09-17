@@ -5,8 +5,9 @@ useHead({
 
 import { storeToRefs } from "pinia";
 import { useAuth } from "~/stores/auth";
+import { TelegramAuthRequest } from "~/types";
 
-const telegramLoginUrl = ref<string | undefined>();
+const telegram = ref<TelegramAuthRequest | undefined>();
 const auth = useAuth();
 const { authRequest, loading, errorMessage } =
   storeToRefs(auth);
@@ -17,9 +18,11 @@ if (user.value) {
   navigateTo(`/event`);
 }
 
-const { data } = await useFetch("/api/telegram/loginUrl");
+const { data } = await useFetch<TelegramAuthRequest>(
+  "/api/telegram/login",
+);
 if (data.value) {
-  telegramLoginUrl.value = data.value.url;
+  telegram.value = data.value;
 }
 </script>
 
@@ -37,7 +40,7 @@ if (data.value) {
       v-else
       :loading="loading"
       :errorMessage="errorMessage"
-      :telegramLoginUrl="telegramLoginUrl"
+      :telegram="telegram"
       @login:phone="auth.login"
     />
   </div>

@@ -3,18 +3,20 @@ import { H3Event, getProxyRequestHeaders } from "h3";
 import { createSession } from "~/server/lib/session";
 
 const prisma = new PrismaClient();
-const { tokenSecret } = useRuntimeConfig();
 
 export default defineEventHandler(
   async (event: H3Event) => {
-    const { code } = getQuery(event);
-    if (!code) {
+    const { payload, redirect } = getQuery(event);
+    if (!payload) {
       throw createError({
         statusCode: 400,
         statusMessage: "Bad Request",
       });
     }
-    const password = code.toString();
+
+    await protectCode(event);
+
+    const password = payload.toString();
     const now = new Date().getTime();
     const timeout = new Date(now - 5 * 60_000);
     const otp = await prisma.oneTimePassword.findFirst({
@@ -31,17 +33,31 @@ export default defineEventHandler(
       const userAgent = headers["user-agent"];
       const ipAddress = headers["x-forwarded-for"];
 
-      await prisma.oneTimePasswordLog.create({
-        data: {
-          password,
-          ipAddress,
-          userAgent,
-        },
-      });
+      const passwordLog =
+        await prisma.oneTimePasswordLog.findFirst({
+          where: {
+            password,
+            ipAddress,
+            createdAt: {
+              gte: timeout,
+            },
+          },
+        });
+
+      // Skip logging to avoid polling autoban
+      if (!passwordLog) {
+        await prisma.oneTimePasswordLog.create({
+          data: {
+            password,
+            ipAddress,
+            userAgent,
+          },
+        });
+      }
 
       throw createError({
-        statusCode: 400,
-        statusMessage: "Bad Request",
+        statusCode: 404,
+        statusMessage: "Payload not found",
       });
     }
 
@@ -59,6 +75,12 @@ export default defineEventHandler(
     }
 
     createSession(event, user);
+
+    if (redirect === false) {
+      return {
+        success: true,
+      };
+    }
 
     return sendRedirect(event, "/event");
   },
