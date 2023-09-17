@@ -9,9 +9,6 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@fortawesome/free-brands-svg-icons": "^6.4.2",
-    "@fortawesome/free-solid-svg-icons": "^6.4.2",
-    "@fortawesome/vue-fontawesome": "^3.0.3",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@pinia/nuxt": "^0.4.11",
     "@prisma/client": "^5.2.0",
@@ -25,6 +22,7 @@
     "jsonwebtoken": "^9.0.1",
     "maska": "^2.1.10",
     "nuxt": "^3.7.0",
+    "nuxt-icon": "^0.5.0",
     "pinia": "^2.1.6",
     "prettier-plugin-tailwindcss": "^0.5.4",
     "prisma": "^5.2.0",

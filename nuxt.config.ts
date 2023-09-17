@@ -17,11 +17,12 @@ export default defineNuxtConfig({
       password: process.env.SMSAERO_PASSWORD,
     },
   },
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
-  css: [
-    "@/assets/styles/main.scss",
-    "@fortawesome/fontawesome-svg-core/styles.css",
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@pinia/nuxt",
+    "nuxt-icon",
   ],
+  css: ["@/assets/styles/main.scss"],
   app: {
     head: {
       link: [

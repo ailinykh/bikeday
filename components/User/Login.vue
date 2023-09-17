@@ -96,11 +96,7 @@ const checkStatus = async (payload: string) => {
             :disabled="loading"
             class="inline-flex w-full place-content-center items-center bg-blue-400 py-3 font-medium text-white disabled:opacity-75"
           >
-            <i
-              ><font-awesome-icon
-                class="px-3"
-                icon="fa-brands fa-telegram"
-            /></i>
+            <Icon name="fa6-brands:telegram" class="mr-3" />
             Войти через Telegram
           </button>
         </div>
