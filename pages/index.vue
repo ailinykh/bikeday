@@ -5,12 +5,10 @@
         <h1 class="py-10 text-6xl font-medium">
           Орловский {{ event.title }}
         </h1>
-        <p class="my-8 text-xl">
-          Десятый "Велодень" в Орле пройдёт ближе
+        <p class="my-14 text-xl">
+          Десятый "Велодень" в Орле назначен на
           <!-- TODO: event.date -->
-          <strong class="text-rose-600"
-            >к концу сентября</strong
-          >
+          <strong class="text-rose-600">24 сентября</strong>
         </p>
         <p class="my-8 text-lg">Подробности чуть позже</p>
         <NuxtLink
@@ -66,18 +64,23 @@ const event = await useEvent();
 const user = useState("user");
 
 const sponsors = [
-  // [
-  //   {
-  //     url: "https://odsk-group.ru/",
-  //     imageUrl: "/static/sponsors/odsk.png",
-  //     title: "Объединённая домостроительная корпорация",
-  //   },
-  //   {
-  //     url: "https://vk.com/stacy_owlrei",
-  //     imageUrl: "/static/sponsors/stacy_owlrei.png",
-  //     title: "Иллюстратор Анастасия Тимохина",
-  //   },
-  // ],
+  [
+    {
+      url: "https://sber.ru/",
+      imageUrl: "/static/sponsors/sber.png",
+      title: "ОАО «Cбер Банк»",
+    },
+    {
+      url: "https://odsk-group.ru/",
+      imageUrl: "/static/sponsors/odsk.png",
+      title: "Объединённая домостроительная корпорация",
+    },
+    {
+      url: "https://vk.com/stacy_owlrei",
+      imageUrl: "/static/sponsors/stacy_owlrei.png",
+      title: "Иллюстратор Анастасия Тимохина",
+    },
+  ],
   [
     {
       url: "https://www.orel-adm.ru/",
