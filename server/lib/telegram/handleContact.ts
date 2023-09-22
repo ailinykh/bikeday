@@ -29,19 +29,24 @@ export const handleContact = async (
     };
   }
 
+  const phone = message.contact.phone_number.replace(
+    /\D/,
+    "",
+  );
+
   await prisma.user.upsert({
     where: {
-      phone: message.contact.phone_number,
+      phone,
     },
     update: {
-      phone: message.contact.phone_number,
+      phone,
       telegramId: message.contact.user_id.toString(),
     },
     create: {
       status: "user",
       firstName: message.contact.first_name,
       lastName: message.contact.last_name ?? "",
-      phone: message.contact.phone_number,
+      phone,
       telegramId: message.contact.user_id.toString(),
     },
   });
