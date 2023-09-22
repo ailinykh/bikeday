@@ -12,7 +12,15 @@ export const createSession = (
     console.error("❌ secret token is empty");
   }
 
-  const { id, phone, status, lastName, firstName } = user;
+  const {
+    id,
+    phone,
+    status,
+    lastName,
+    firstName,
+    birthday,
+    gender,
+  } = user;
   const token = jwt.sign(
     {
       id,
@@ -20,6 +28,8 @@ export const createSession = (
       status,
       firstName,
       lastName,
+      birthday,
+      gender,
     },
     tokenSecret,
     {

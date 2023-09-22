@@ -22,18 +22,16 @@ export const useUser = defineStore("user", () => {
     id,
     firstName,
     lastName,
-  }: {
-    id: number;
-    firstName: string;
-    lastName: string;
-  }): Promise<User> => {
+    birthday,
+    gender,
+  }: User): Promise<User> => {
     loading.value = true;
 
     const { data, error } = await useFetch<User>(
       `/api/user/${id}`,
       {
         method: "PUT",
-        body: { firstName, lastName },
+        body: { firstName, lastName, birthday, gender },
       },
     );
 

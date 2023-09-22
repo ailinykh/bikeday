@@ -25,6 +25,12 @@ export default defineNuxtConfig({
   css: ["@/assets/styles/main.scss"],
   app: {
     head: {
+      script: [
+        {
+          // TODO: import from flowbite
+          src: "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js",
+        },
+      ],
       link: [
         {
           href: "/apple-touch-icon.png",

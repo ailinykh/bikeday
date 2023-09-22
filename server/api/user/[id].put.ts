@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { H3Event } from "h3";
 import { User } from "~/types";
+import { createSession } from "~/server/lib/session";
 
 const prisma = new PrismaClient();
 
@@ -26,16 +27,33 @@ export default defineEventHandler(
       });
     }
 
-    const { firstName, lastName } = await readBody(event);
+    const body = await readBody(event);
+    const { lastName, firstName, gender } = body;
+    let birthday = null;
+    if (body.birthday) {
+      const [day, month, year] = body.birthday.split(".");
+      birthday = new Date(
+        `${year}-${month}-${day}T12:00:00Z`,
+      );
+    }
 
-    return prisma.user.update({
+    const updated = await prisma.user.update({
       where: {
         id,
       },
       data: {
         firstName,
         lastName,
+        birthday,
+        gender,
       },
     });
+
+    if (updated.id == user.id) {
+      // update values in JWT
+      createSession(event, user);
+    }
+
+    return updated;
   },
 );
