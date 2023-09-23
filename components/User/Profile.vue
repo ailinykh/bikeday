@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO: replace this form with `ProfileForm`
 import { User } from "~/types";
 
 const props = defineProps<{
