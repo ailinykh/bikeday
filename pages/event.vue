@@ -12,6 +12,7 @@ import { User } from "~/types";
 import { useParticipation } from "~/stores/participation";
 import { useUser } from "~/stores/user";
 
+// User
 const user = useState<User>("user");
 const showProfile = computed(
   () => user.value.firstName.length == 0,
@@ -31,12 +32,25 @@ const updateUser = async (obj: {
   }
 };
 
+// Participation
 const event = await useEvent();
 const participationStore = useParticipation();
 const { bike, loading: participationLoading } = storeToRefs(
   participationStore,
 );
 await participationStore.initialize(event.id);
+
+// Children
+const children = ref<User[]>([]);
+
+onMounted(async () => {
+  const data = await $fetch<User[]>(`/api/children`, {
+    headers: useRequestHeaders(["cookie"]),
+  });
+  if (data) {
+    children.value = data;
+  }
+});
 </script>
 <template>
   <div>
@@ -57,6 +71,7 @@ await participationStore.initialize(event.id);
         v-else
         :participation="participationStore"
         :user="user"
+        :children="children"
       />
     </div>
     <div v-else>

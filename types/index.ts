@@ -19,6 +19,14 @@ export type User = {
   lastName: string;
 };
 
+export type UserProfileFull = {
+  id: number | null;
+  firstName: string;
+  lastName: string;
+  birthday: string;
+  gender: string;
+};
+
 export interface IParticipation {
   bike: string;
   district: string;

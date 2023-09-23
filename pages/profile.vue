@@ -45,11 +45,17 @@ const submitProfile = async (data: User) => {
       Профиль
     </h2>
     <UserProfileForm
-      :user="user"
+      :profile="user"
       :loading="loading"
       :successMessage="successMessage"
       :errorMessage="errorMessage"
+      :showDelete="false"
       @form:submit="submitProfile"
     />
+    <a
+      href="/children"
+      class="link mt-10 block font-medium text-green-600 dark:text-green-500"
+      >Добавить ребёнка</a
+    >
   </div>
 </template>

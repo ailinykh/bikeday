@@ -1,5 +1,5 @@
 <template>
-  <div class="bikeday-bg-white h-screen">
+  <div class="bikeday-bg-white h-screen overflow-y-auto">
     <nav
       class="border-b border-gray-200 bg-white drop-shadow-md dark:bg-gray-900"
     >

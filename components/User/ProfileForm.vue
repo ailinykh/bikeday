@@ -2,31 +2,45 @@
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 
-import { User } from "~/types";
+import { UserProfileFull } from "~/types";
 
 const props = defineProps<{
   errorMessage?: string;
   successMessage?: string;
   loading: boolean;
-  user: User;
+  profile: UserProfileFull;
+  showDelete: boolean;
 }>();
 
-const data = ref<User>(props.user);
+const calculateBirthDate = (birthday: string): string =>
+  `${birthday.substring(8, 10)}.${birthday.substring(
+    5,
+    7,
+  )}.${birthday.substring(0, 4)}`;
 
-const state = reactive({
-  firstName: data.value.firstName,
-  lastName: data.value.lastName,
+let state = reactive({
+  id: props.profile.id,
+  firstName: props.profile.firstName,
+  lastName: props.profile.lastName,
   birthday:
-    data.value.birthday &&
-    `${data.value.birthday.substring(
-      8,
-      10,
-    )}.${data.value.birthday.substring(
-      5,
-      7,
-    )}.${data.value.birthday.substring(0, 4)}`,
-  gender: data.value.gender,
+    props.profile.birthday &&
+    calculateBirthDate(props.profile.birthday),
+  gender: props.profile.gender,
 });
+
+watch(
+  () => props.profile,
+  (user) => {
+    state.id = user.id;
+    state.firstName = user.firstName;
+    state.lastName = user.lastName;
+    state.gender = user.gender;
+
+    if (user.birthday) {
+      state.birthday = calculateBirthDate(user.birthday);
+    }
+  },
+);
 
 const rules = computed(() => ({
   firstName: { required },
@@ -37,7 +51,7 @@ const rules = computed(() => ({
 
 const v$ = useVuelidate(rules, state);
 
-const emit = defineEmits(["form:submit"]);
+const emit = defineEmits(["form:submit", "form:delete"]);
 
 const onSubmit = async () => {
   await v$.value.$validate();
@@ -45,10 +59,16 @@ const onSubmit = async () => {
     emit("form:submit", state);
   }
 };
+
+const onDelete = () => {
+  if (confirm("Вы уверены?")) {
+    emit("form:delete", state);
+  }
+};
 </script>
 
 <template>
-  <div>
+  <div class="pb-4">
     <form @submit.prevent="onSubmit">
       <div class="mb-6">
         <label
@@ -61,7 +81,6 @@ const onSubmit = async () => {
           type="text"
           id="firstName"
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 disabled:opacity-75 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
-          placeholder="Ваше имя"
           :disabled="loading"
           required
         />
@@ -91,7 +110,6 @@ const onSubmit = async () => {
           type="text"
           id="lastName"
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 disabled:opacity-75 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
-          placeholder="Ваша фамилия"
           :disabled="loading"
           required
         />
@@ -134,6 +152,7 @@ const onSubmit = async () => {
           </div>
           <input
             v-model="state.birthday"
+            id="datepicker"
             datepicker
             datepicker-format="dd.mm.yyyy"
             type="text"
@@ -172,10 +191,7 @@ const onSubmit = async () => {
           for="gender"
           class="mb-2 block flex items-center text-sm font-medium text-gray-900 dark:text-white"
         >
-          Ваш пол
-          <span class="ml-2 text-xs text-gray-400">
-            (нужен для оформления грамот)
-          </span>
+          Пол
         </label>
         <fieldset>
           <div class="flex items-center">
@@ -242,14 +258,24 @@ const onSubmit = async () => {
           {{ props.errorMessage }}
         </p>
       </div>
-      <button
-        type="submit"
-        class="inline-flex w-full place-content-center items-start rounded-lg bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-800 disabled:opacity-75 dark:bg-green-600 dark:hover:bg-green-700 sm:w-auto"
-        :disabled="loading"
-      >
-        <Loading v-if="loading" class="w-5" />
-        Сохранить
-      </button>
+      <div class="flex justify-between">
+        <button
+          type="submit"
+          class="inline-flex w-full place-content-center items-start rounded-lg bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-800 disabled:opacity-75 dark:bg-green-600 dark:hover:bg-green-700 sm:w-auto"
+          :disabled="loading"
+        >
+          <Loading v-if="loading" class="w-5" />
+          Сохранить
+        </button>
+        <button
+          v-if="props.showDelete"
+          type="button"
+          @click="onDelete"
+          class="inline-flex w-full place-content-center items-start rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 disabled:opacity-75 dark:bg-red-600 dark:hover:bg-red-700 sm:w-auto"
+        >
+          Удалить
+        </button>
+      </div>
     </form>
   </div>
 </template>
