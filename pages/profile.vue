@@ -29,7 +29,7 @@ const submitProfile = async (data: User) => {
     });
     successMessage.value = "Данные успешно обновлены";
   } catch (error) {
-    errorMessage.value = error;
+    errorMessage.value = `${error}`;
     successMessage.value = undefined;
   }
 

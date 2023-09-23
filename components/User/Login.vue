@@ -38,7 +38,7 @@ const checkStatus = async (payload: string) => {
       await checkStatus(payload);
     }, 1000);
   } else {
-    navigateTo("/event");
+    window.location.href = "/event"; // hack to update navigation menu items
   }
 };
 </script>

@@ -69,7 +69,7 @@ export const useAuth = defineStore("auth", {
         this.errorMessage = localize(message);
       } else if (data.value) {
         // assume user set by middleware through `useState`
-        navigateTo("/event");
+        window.location.href = "/event"; // hack to update navigation menu items
       }
     },
 
