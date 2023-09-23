@@ -38,7 +38,7 @@ export default defineEventHandler(
     await protectPhone(phone);
 
     const headers = getProxyRequestHeaders(event);
-    const userAgent = headers["user-agent"];
+    const userAgent = headers["user-agent"].slice(191);
     const ipAddress = headers["x-forwarded-for"];
     const password = Math.floor(
       100000 + Math.random() * 900000,
