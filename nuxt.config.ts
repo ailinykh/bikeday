@@ -1,10 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   runtimeConfig: {
+    public: {
+      telegram: {
+        botUsername: process.env.TELEGRAM_BOT_USERNAME,
+      },
+    },
     tokenSecret: process.env.JWT_TOKEN_SECRET,
     telegram: {
       botSecret: process.env.TELEGRAM_BOT_SECRET,
-      botUsername: process.env.TELEGRAM_BOT_USERNAME,
       botToken: process.env.TELEGRAM_BOT_TOKEN,
       supportChatId: process.env.TELEGRAM_SUPPORT_CHAT_ID,
     },
