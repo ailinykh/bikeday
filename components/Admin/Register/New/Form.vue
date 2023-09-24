@@ -3,6 +3,7 @@ import { User, IParticipation } from "~/types";
 
 const props = defineProps<{
   loading: boolean;
+  errorMessage: string | null;
 }>();
 
 const user = ref<User>({
@@ -63,11 +64,37 @@ defineEmits(["user:submit"]);
           required
         />
       </div>
+      <div class="mb-6 flex items-start">
+        <div class="flex h-5 items-center">
+          <input
+            id="remember"
+            type="checkbox"
+            value=""
+            class="focus:ring-3 h-4 w-4 rounded border border-gray-300 bg-gray-50 focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
+            @change="
+              (e) =>
+                (user.status = e.target.checked
+                  ? 'child'
+                  : 'user')
+            "
+          />
+        </div>
+        <label
+          for="remember"
+          class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >Ребенок</label
+        >
+      </div>
       <div class="mb-6">
         <label
           for="lastName"
           class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >Телефон</label
+          >Телефон
+          {{
+            user.status == "child"
+              ? "уже зарегистрированного родителя"
+              : ""
+          }}</label
         >
         <input
           v-model="user.phone"
@@ -114,14 +141,22 @@ defineEmits(["user:submit"]);
           required
         />
       </div>
-      <button
-        type="submit"
-        class="inline-flex w-full place-content-center items-start rounded-lg bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-800 disabled:opacity-75 dark:bg-green-600 dark:hover:bg-green-700 sm:w-auto"
-        :disabled="loading"
-      >
-        <Loading v-if="loading" class="w-5" />
-        Зарегистрировать
-      </button>
+      <div class="flex items-center">
+        <button
+          type="submit"
+          class="inline-flex w-full place-content-center items-start rounded-lg bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-800 disabled:opacity-75 dark:bg-green-600 dark:hover:bg-green-700 sm:w-auto"
+          :disabled="loading"
+        >
+          <Loading v-if="loading" class="w-5" />
+          Зарегистрировать
+        </button>
+        <p
+          v-if="errorMessage"
+          class="pl-4 font-medium text-red-800"
+        >
+          {{ errorMessage }}
+        </p>
+      </div>
     </form>
   </div>
 </template>

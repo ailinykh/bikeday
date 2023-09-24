@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { H3Event } from "h3";
-import { User } from "~/types";
 
 const prisma = new PrismaClient();
 
@@ -13,6 +12,7 @@ export default defineEventHandler(
     const {
       firstName,
       lastName,
+      status,
       phone: p,
       district,
       band,
@@ -29,12 +29,31 @@ export default defineEventHandler(
     });
 
     if (!user) {
+      if (status == "child") {
+        throw createError({
+          statusCode: 404,
+          statusMessage: "Parent not found",
+        });
+      }
+
       user = await prisma.user.create({
         data: {
           status: "user",
           firstName,
           lastName,
           phone,
+        },
+      });
+    }
+
+    // child registration
+    if (status == "child") {
+      user = await prisma.user.create({
+        data: {
+          status,
+          firstName,
+          lastName,
+          parentId: user.id,
         },
       });
     }

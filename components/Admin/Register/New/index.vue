@@ -6,19 +6,29 @@ const props = defineProps<{
 }>();
 
 const loading = ref<boolean>(false);
-const message = ref<string | null>();
+const message = ref<string | null>(null);
+const errorMessage = ref<string | null>(null);
 
 const onSubmit = async (u: User, p: IParticipation) => {
   loading.value = true;
+  errorMessage.value = null;
 
-  const { user, participation } = await $fetch<{
+  const { error, data } = await useFetch<{
     user: User;
     participation: IParticipation;
   }>(`/api/admin/event/${props.event.id}/participation`, {
     method: "POST",
     body: { ...u, ...p },
   });
-  message.value = `${user.firstName} ${user.lastName} успешно зарегистрирован. Номер браслета: ${participation.band}`;
+
+  if (error.value) {
+    errorMessage.value =
+      error.value.statusMessage ??
+      "Произошла неизвестная ошибка";
+  } else {
+    const { user, participation } = data.value!;
+    message.value = `${user.firstName} ${user.lastName} успешно зарегистрирован. Номер браслета: ${participation.band}`;
+  }
 
   loading.value = false;
 };
@@ -44,6 +54,7 @@ const onReset = () => {
     <AdminRegisterNewForm
       v-else
       :loading="loading"
+      :errorMessage="errorMessage"
       @user:submit="onSubmit"
     />
   </div>

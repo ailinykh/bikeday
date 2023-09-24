@@ -36,7 +36,10 @@ defineEmits(["user:submit"]);
       <span class="font-medium">{{
         `${user.firstName} ${user.lastName}`
       }}</span>
-      <span class="mx-2 text-sm">
+      <span
+        v-if="user.status != 'child'"
+        class="mx-2 text-sm"
+      >
         <Icon name="mdi:phone" class="" />
         {{ user.phone }}
       </span>
