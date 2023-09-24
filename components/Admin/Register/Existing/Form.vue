@@ -42,6 +42,11 @@ defineEmits(["user:submit"]);
       >
         <Icon name="mdi:phone" class="" />
         {{ user.phone }}
+        <Icon
+          v-if="user.status != 'user'"
+          class="h-5 w-5 text-red-500"
+          name="material-symbols:pedal-bike-outline"
+        />
       </span>
     </h2>
     <form
