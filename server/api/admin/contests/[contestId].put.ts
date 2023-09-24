@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { H3Event } from "h3";
-import { User } from "~/types";
 
 const prisma = new PrismaClient();
 
@@ -15,6 +14,26 @@ export default defineEventHandler(
     return prisma.contest.update({
       where: { id },
       data: { status },
+      select: {
+        id: true,
+        status: true,
+        title: true,
+        ContestParticipation: {
+          select: {
+            score: true,
+            user: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                status: true,
+                phone: true,
+                EventParticipation: true,
+              },
+            },
+          },
+        },
+      },
     });
   },
 );

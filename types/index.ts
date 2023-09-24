@@ -20,6 +20,7 @@ export type IContestParticipation = {
   eventId: number;
   contestId: number;
   userId: number;
+  score: string;
 };
 
 export type IEvent = {

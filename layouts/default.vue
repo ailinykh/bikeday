@@ -52,6 +52,14 @@
                 ><Icon name="tabler:bandage" /> Браслеты</a
               >
             </li>
+            <li v-if="extendedMenu">
+              <a
+                href="/admin/contests"
+                class="block rounded py-2 pl-3 pr-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-500"
+                ><Icon name="healthicons:bike" />
+                Конкурсы</a
+              >
+            </li>
             <li>
               <a
                 href="/event"

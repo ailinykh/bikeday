@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
   });
 
   const contests = await prisma.contest.findMany({
+    orderBy: { order: "asc" },
     select: {
       id: true,
       title: true,

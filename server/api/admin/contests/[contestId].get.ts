@@ -10,13 +10,29 @@ export default defineEventHandler(
     const { contestId } = event.context.params!;
     const id = parseInt(contestId);
 
+    // TODO: respect eventId
+
     return prisma.contest.findUnique({
       where: { id },
       select: {
         id: true,
         status: true,
         title: true,
-        ContestParticipation: true,
+        ContestParticipation: {
+          select: {
+            score: true,
+            user: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                status: true,
+                phone: true,
+                EventParticipation: true,
+              },
+            },
+          },
+        },
       },
     });
   },
