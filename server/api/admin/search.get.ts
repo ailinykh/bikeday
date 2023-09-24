@@ -26,7 +26,10 @@ export default defineEventHandler(
       for (const u of users) {
         if (u.status != "child") {
           const children = await prisma.user.findMany({
-            where: { parentId: u.id },
+            where: {
+              parentId: u.id,
+              status: { not: "removed" },
+            },
             select: {
               id: true,
               status: true,
