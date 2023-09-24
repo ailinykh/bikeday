@@ -4,6 +4,7 @@ import { User, IParticipation } from "~/types";
 const props = defineProps<{
   user: User;
   loading: boolean;
+  message: string | null;
 }>();
 
 const paricipation = ref<IParticipation>(
@@ -18,9 +19,12 @@ const paricipation = ref<IParticipation>(
 watch(
   () => props.user,
   (user) => {
-    if (user.participation) {
-      paricipation.value = user.participation;
-    }
+    paricipation.value = user.participation || {
+      bike: "",
+      district: "",
+      band: "",
+      bandBy: null,
+    };
   },
 );
 
@@ -79,14 +83,22 @@ defineEmits(["user:submit"]);
           required
         />
       </div>
-      <button
-        type="submit"
-        class="inline-flex w-full place-content-center items-start rounded-lg bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-800 disabled:opacity-75 dark:bg-green-600 dark:hover:bg-green-700 sm:w-auto"
-        :disabled="loading"
-      >
-        <Loading v-if="loading" class="w-5" />
-        Сохранить
-      </button>
+      <div class="flex items-center">
+        <button
+          type="submit"
+          class="inline-flex w-full place-content-center items-start rounded-lg bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-800 disabled:opacity-75 dark:bg-green-600 dark:hover:bg-green-700 sm:w-auto"
+          :disabled="loading"
+        >
+          <Loading v-if="loading" class="w-5" />
+          Сохранить
+        </button>
+        <p
+          v-if="message"
+          class="pl-4 font-medium text-green-800"
+        >
+          {{ message }}
+        </p>
+      </div>
     </form>
   </div>
 </template>

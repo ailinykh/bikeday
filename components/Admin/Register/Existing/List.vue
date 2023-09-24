@@ -23,7 +23,10 @@ defineEmits(["user:edit"]);
             class="whitespace-nowrap px-2 py-2 font-medium text-gray-900 dark:text-white"
           >
             {{ user.firstName + " " + user.lastName }}
-            <p class="text-xs font-light">
+            <span v-if="user.status == 'child'"
+              ><Icon name="cil:child"
+            /></span>
+            <p v-else class="text-xs font-light">
               {{ user.phone }}
             </p>
           </th>

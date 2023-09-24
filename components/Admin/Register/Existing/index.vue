@@ -9,12 +9,14 @@ const searchInput = ref();
 const users = ref<User[] | null>(null);
 const loading = ref<boolean>(false);
 const selectedUser = ref<User | null>(null);
+const message = ref<string | null>(null);
 
 onMounted(() => {
   searchInput.value.focus();
 });
 
 const onSearch = async (phone: string) => {
+  message.value = null;
   loading.value = true;
   users.value = null;
   const result = await $fetch<User[]>(
@@ -33,12 +35,14 @@ const onSubmit = async (
   user: User,
   participation: IParticipation,
 ) => {
+  message.value = null;
   loading.value = true;
   await $fetch<IParticipation>(
     `/api/admin/event/${props.event.id}/user/${user.id}`,
     { body: participation, method: "POST" },
   );
   loading.value = false;
+  message.value = "Данные успешно изменены";
 };
 </script>
 
@@ -107,6 +111,7 @@ const onSubmit = async (
       v-if="selectedUser"
       :user="selectedUser"
       :loading="loading"
+      :message="message"
       @user:submit="onSubmit"
     />
   </div>
