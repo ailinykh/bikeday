@@ -12,7 +12,7 @@ import {
 
 type User = IUser & {
   EventParticipation: IParticipation[];
-  ContestParticipation: IContestParticipation[];
+  ContestParticipation?: IContestParticipation[];
 };
 type Contest = IContest & {
   ContestParticipation: { user: User; score: string }[];
@@ -206,6 +206,7 @@ const onAddParticipation = async (user: User) => {
             <td class="px-2 py-2">
               <button
                 v-if="
+                  !user.ContestParticipation ||
                   !user.ContestParticipation.find(
                     (p) => p.contestId == contest.id,
                   )
