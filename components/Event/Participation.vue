@@ -102,8 +102,5 @@ const props = defineProps<{
         </tbody>
       </table>
     </div>
-    <p class="py-12 text-center">
-      Регистрация в конкурсах будет доступна чуть позже
-    </p>
   </div>
 </template>

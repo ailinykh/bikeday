@@ -8,7 +8,7 @@ definePageMeta({
 });
 
 import { storeToRefs } from "pinia";
-import { User } from "~/types";
+import { IContest, User } from "~/types";
 import { useParticipation } from "~/stores/participation";
 import { useUser } from "~/stores/user";
 
@@ -42,10 +42,46 @@ await participationStore.initialize(event.id);
 
 // Children
 const children = ref<User[]>(
-  await $fetch<User[]>(`/api/children`, {
+  await $fetch<User[]>("/api/children", {
     headers: useRequestHeaders(["cookie"]),
   }),
 );
+
+// Contests
+const contests = ref<IContest[]>(
+  await $fetch<IContest[]>("/api/contests", {
+    headers: useRequestHeaders(["cookie"]),
+  }),
+);
+
+const reloadContests = async () => {
+  contests.value =
+    await $fetch<IContest[]>("/api/contests");
+};
+
+const onContestParticipationSubmit = async (
+  contest: IContest,
+) => {
+  await $fetch<IContest[]>(`/api/contests/participation`, {
+    method: "POST",
+    body: { eventId: event.id, contestId: contest.id },
+  });
+  await reloadContests();
+};
+
+const onContestParticipationCancel = async (
+  contest: IContest,
+) => {
+  if (!confirm("Вы точно хотите отказаться от участия?")) {
+    return;
+  }
+
+  await $fetch<IContest[]>(`/api/contests/participation`, {
+    method: "DELETE",
+    body: { eventId: event.id, contestId: contest.id },
+  });
+  await reloadContests();
+};
 </script>
 <template>
   <div>
@@ -68,6 +104,15 @@ const children = ref<User[]>(
         :user="user"
         :children="children"
       />
+      <ContestParticipation
+        v-if="contests.length > 0"
+        :contests="contests"
+        @participation:submit="onContestParticipationSubmit"
+        @participation:cancel="onContestParticipationCancel"
+      />
+      <p v-else class="py-12 text-center">
+        Регистрация в конкурсах будет доступна чуть позже
+      </p>
     </div>
     <div v-else>
       <Loading />

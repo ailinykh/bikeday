@@ -61,4 +61,50 @@ const events = [
   },
 ];
 
-export { events, users };
+let order = 0;
+const contests = [
+  {
+    title: "Костюм #10Велоденьорел",
+    status: "closed",
+    kind: "common",
+    order: ++order,
+  },
+  {
+    title: "Велобогатырь",
+    status: "closed",
+    kind: "ranked",
+    order: ++order,
+  },
+  {
+    title: "Велобиатлон",
+    status: "closed",
+    kind: "ranked",
+    order: ++order,
+  },
+  {
+    title: "Велогонки (вместо драга)",
+    status: "closed",
+    kind: "ranked",
+    order: ++order,
+  },
+  {
+    title: "Велочерепаха (вместотрекстенда)",
+    status: "closed",
+    kind: "ranked",
+    order: ++order,
+  },
+  {
+    title: "Полоса препятствий (вместо трассы)",
+    status: "closed",
+    kind: "ranked",
+    order: ++order,
+  },
+  {
+    title: "Безумный велосипед",
+    status: "closed",
+    kind: "ranked",
+    order: ++order,
+  },
+];
+
+export { events, contests, users };

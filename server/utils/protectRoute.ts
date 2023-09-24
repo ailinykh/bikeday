@@ -3,7 +3,7 @@ import { User } from "~/types";
 
 export default (
   event: H3Event,
-  acl: string[] = ["user"],
+  acl: string[] = ["user", "volunteer", "admin"],
 ) => {
   const user: User = event.context.user;
   if (!user) {

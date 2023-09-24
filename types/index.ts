@@ -9,6 +9,19 @@ export type AuthRequest = {
   createdAt: string;
 };
 
+export type IContest = {
+  id: number;
+  title: string;
+  status: string;
+  participation: IContestParticipation | null;
+};
+
+export type IContestParticipation = {
+  eventId: number;
+  contestId: number;
+  userId: number;
+};
+
 export type IEvent = {
   id: number;
   title: string;

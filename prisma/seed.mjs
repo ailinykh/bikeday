@@ -1,11 +1,16 @@
 import { PrismaClient } from "@prisma/client";
-import { events, users } from "./seed_data.mjs";
+import { events, contests, users } from "./seed_data.mjs";
 
 const prisma = new PrismaClient();
 
 async function seed() {
   for (const data of events) {
     await prisma.event.create({
+      data,
+    });
+  }
+  for (const data of contests) {
+    await prisma.contest.create({
       data,
     });
   }
