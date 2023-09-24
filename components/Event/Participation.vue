@@ -81,8 +81,23 @@ const props = defineProps<{
             <td
               class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
             >
-              {{ participation.band ?? "пока неизвестен" }}
+              {{
+                (child.participation &&
+                  child.participation.band) ??
+                "пока неизвестен"
+              }}
             </td>
+            <!-- <td class="px-6 py-4">
+              <button
+                type="button"
+                class="font-medium text-green-800"
+                data-modal-target="child-participation-modal"
+                data-modal-toggle="child-participation-modal"
+                v-if="!child.participation"
+              >
+                Указать браслет
+              </button>
+            </td> -->
           </tr>
         </tbody>
       </table>
