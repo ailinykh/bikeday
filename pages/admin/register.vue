@@ -8,7 +8,7 @@ definePageMeta({
 });
 
 const event = await useEvent();
-const mode = ref<string>("new");
+const mode = ref<string>("existing");
 const changeMode = (to: string) => {
   mode.value = "reset";
   // hack to reset form state
