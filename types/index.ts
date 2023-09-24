@@ -9,6 +9,12 @@ export type AuthRequest = {
   createdAt: string;
 };
 
+export type IEvent = {
+  id: number;
+  title: string;
+  date: Date;
+};
+
 export type User = {
   id: number;
   status: string;
@@ -17,6 +23,7 @@ export type User = {
   gender: string | null;
   firstName: string;
   lastName: string;
+  participation: IParticipation | null;
 };
 
 export type UserProfileFull = {

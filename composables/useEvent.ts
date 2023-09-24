@@ -1,6 +1,7 @@
 import { Event } from "@prisma/client";
+import { IEvent } from "~/types";
 
-export default async () => {
+export default async (): Promise<IEvent> => {
   const { data, error } =
     await useFetch<Event>(`/api/event`);
 
@@ -11,5 +12,5 @@ export default async () => {
     });
   }
 
-  return data.value as Event;
+  return data.value as IEvent;
 };

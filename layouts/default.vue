@@ -45,6 +45,13 @@
           <ul
             class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900"
           >
+            <li v-if="extendedMenu">
+              <a
+                href="/admin/register"
+                class="block rounded py-2 pl-3 pr-4 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:bg-transparent md:dark:hover:text-green-500"
+                ><Icon name="tabler:bandage" /> Браслеты</a
+              >
+            </li>
             <li>
               <a
                 href="/event"
@@ -85,14 +92,21 @@
 import { onMounted } from "vue";
 import { initFlowbite } from "flowbite";
 import { useAuth } from "~/stores/auth";
+import { User } from "~/types";
 
 const auth = useAuth();
-const user = useState("user");
+const user = useState<User | null>("user");
 
 // initialize components based on data attribute selectors
 onMounted(() => {
   initFlowbite();
 });
+
+const extendedMenu = computed(
+  () =>
+    user.value &&
+    ["volunteer", "admin"].includes(user.value.status),
+);
 
 const logout = async () => {
   if (confirm("Вы действительно хотите выйти?")) {
