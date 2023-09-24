@@ -1,7 +1,8 @@
 import { TelegramContext } from "~/types/telegram";
 import {
-  handleStart,
   handleContact,
+  handleStart,
+  handleStatistics,
 } from "~/server/lib/telegram";
 
 const config = useRuntimeConfig();
@@ -21,6 +22,10 @@ export default defineEventHandler(async (event) => {
 
   if (message.text?.startsWith("/start")) {
     return handleStart(message, event);
+  }
+
+  if (message.text?.startsWith("/statistics")) {
+    return handleStatistics(message, event);
   }
 
   if (message.contact) {
