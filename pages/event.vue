@@ -41,16 +41,11 @@ const { bike, loading: participationLoading } = storeToRefs(
 await participationStore.initialize(event.id);
 
 // Children
-const children = ref<User[]>([]);
-
-onMounted(async () => {
-  const data = await $fetch<User[]>(`/api/children`, {
+const children = ref<User[]>(
+  await $fetch<User[]>(`/api/children`, {
     headers: useRequestHeaders(["cookie"]),
-  });
-  if (data) {
-    children.value = data;
-  }
-});
+  }),
+);
 </script>
 <template>
   <div>

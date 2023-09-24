@@ -12,10 +12,28 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return prisma.user.findMany({
+  const bikeday = await prisma.event.findFirst({
+    orderBy: { date: "desc" },
+  });
+
+  const children = await prisma.user.findMany({
     where: {
       parentId: user.id,
       status: "child",
     },
+    select: {
+      firstName: true,
+      lastName: true,
+      gender: true,
+      birthday: true,
+      EventParticipation: true,
+    },
+  });
+
+  return children.map((child) => {
+    const participation = child.EventParticipation.find(
+      (p) => p.eventId == bikeday?.id,
+    );
+    return { ...child, participation };
   });
 });
