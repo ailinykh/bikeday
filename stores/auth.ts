@@ -68,8 +68,13 @@ export const useAuth = defineStore("auth", {
         const message = error.value.statusMessage || "";
         this.errorMessage = localize(message);
       } else if (data.value) {
+        const {
+          query: { redirectTo },
+        } = useRoute();
         // assume user set by middleware through `useState`
-        window.location.href = "/event"; // hack to update navigation menu items
+        window.location.href = redirectTo
+          ? redirectTo.toString()
+          : "/event"; // hack to update navigation menu items
       }
     },
 
