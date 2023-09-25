@@ -58,6 +58,16 @@ export default defineEventHandler(async (event) => {
     return;
   }
 
+  if (!text) {
+    // user sent media or something
+    return {
+      method: "forwardMessage",
+      chat_id,
+      from_chat_id: chat.id,
+      message_id: message.message_id,
+    };
+  }
+
   const { id, first_name, last_name } = message.from;
   const displayName = last_name
     ? first_name + " " + last_name
