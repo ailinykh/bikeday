@@ -19,6 +19,14 @@ const event = await useEvent();
 const participationStore = useParticipation();
 const { band } = storeToRefs(participationStore);
 await participationStore.initialize(event.id);
+
+// children
+const children = ref<User[]>(
+  // TODO: respect children participation
+  await $fetch<User[]>(`/api/children`, {
+    headers: useRequestHeaders(["cookie"]),
+  }),
+);
 </script>
 
 <template>
@@ -42,10 +50,20 @@ await participationStore.initialize(event.id);
         >в поддержку</a
       >.
     </p>
-    <p class="mt-8">
+    <p class="my-8">
       Вы всегда можете изменить ваше имя в
       <a href="/profile" class="font-medium text-green-500"
         >профиле</a
+      >
+    </p>
+    <p v-if="children.length > 0">
+      Сертификаты детей:
+      <a
+        v-for="user in children"
+        :key="user.id"
+        class="px-5 text-center font-medium text-green-800"
+        :href="`https://cert.bikeday.me/2023?name=${user.firstName}%20${user.lastName}`"
+        >{{ user.firstName + " " + user.lastName }}</a
       >
     </p>
   </div>
