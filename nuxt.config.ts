@@ -72,6 +72,10 @@ export default defineNuxtConfig({
           name: "theme-color",
           content: "#ffffff",
         },
+        {
+          name: "yandex-verification",
+          content: "6a4d723ae2b56437",
+        },
       ],
     },
   },
