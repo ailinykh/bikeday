@@ -8,7 +8,11 @@ definePageMeta({
 });
 
 import { storeToRefs } from "pinia";
-import type { IContest, User } from "~/types";
+import type {
+  IContest,
+  User,
+  UserProfileFull,
+} from "~/types";
 import { useParticipation } from "~/stores/participation";
 import { useUser } from "~/stores/user";
 
@@ -21,11 +25,7 @@ const showProfile = computed(
 const userStore = useUser();
 const { loading: userLoading } = storeToRefs(userStore);
 
-const updateUser = async (obj: {
-  id: number;
-  firstName: string;
-  lastName: string;
-}) => {
+const updateUser = async (obj: UserProfileFull) => {
   let data = await userStore.update(obj);
   if (data) {
     user.value = data;

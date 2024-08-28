@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { User } from "~/types";
+import type { User, UserProfileFull } from "~/types";
 
 export const useUser = defineStore("user", () => {
   const user = ref<User | null>(null);
@@ -24,7 +24,7 @@ export const useUser = defineStore("user", () => {
     lastName,
     birthday,
     gender,
-  }: User): Promise<User> => {
+  }: UserProfileFull): Promise<User> => {
     loading.value = true;
 
     const { data, error } = await useFetch<User>(
