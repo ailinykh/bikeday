@@ -1,7 +1,6 @@
 import { H3Event } from "h3";
-import { sendSmsc } from "../../lib/smsCenter";
-import { sendSmsAero } from "../../lib/smsAero";
-import protectPhone from "../../utils/protectPhone";
+import { sendSms } from "~/server/lib/sms";
+import protectPhone from "~/server/utils/protectPhone";
 import prisma from "~/server/lib/prisma";
 
 export default defineEventHandler(
@@ -72,18 +71,7 @@ export default defineEventHandler(
       bikeday.title,
     ].join("\n");
 
-    const { error } = await sendSmsc({ phone, text });
-    if (error) {
-      if (error == "message is denied") {
-        await sendSmsAero({ phone, text });
-      } else {
-        // sendMessage(error);
-        throw createError({
-          statusCode: 500,
-          statusMessage: error,
-        });
-      }
-    }
+    await sendSms({ phone, text });
 
     return { context, provider, createdAt };
   },
