@@ -98,7 +98,6 @@
 </template>
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { initFlowbite } from "flowbite";
 import { useAuth } from "~/stores/auth";
 import type { User } from "~/types";
 
@@ -107,7 +106,11 @@ const user = useState<User | null>("user");
 
 // initialize components based on data attribute selectors
 onMounted(() => {
-  initFlowbite();
+  if (import.meta.client) {
+    import("flowbite")
+      .then((flowbite) => flowbite.initFlowbite())
+      .catch((e) => console.error(e));
+  }
 });
 
 const extendedMenu = computed(

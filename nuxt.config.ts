@@ -35,7 +35,7 @@ export default defineNuxtConfig({
       script: [
         {
           // TODO: import from flowbite
-          src: "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js",
+          src: "https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js",
         },
       ],
       link: [
