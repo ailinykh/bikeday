@@ -7,7 +7,7 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-import type { User } from "~/types";
+import type { User, UserProfileFull } from "~/types";
 import { useUser } from "~/stores/user";
 
 const user = useState<User>("user");
@@ -17,7 +17,7 @@ const loading = ref(false);
 const errorMessage = ref<string | undefined>();
 const successMessage = ref<string | undefined>();
 
-const submitProfile = async (data: User) => {
+const submitProfile = async (data: UserProfileFull) => {
   loading.value = true;
   successMessage.value = undefined;
   errorMessage.value = undefined;
@@ -45,7 +45,11 @@ const submitProfile = async (data: User) => {
       Профиль
     </h2>
     <UserProfileForm
-      :profile="user"
+      :profile="{
+        ...user,
+        birthday: user.birthday ?? '',
+        gender: user.gender ?? '',
+      }"
       :loading="loading"
       :successMessage="successMessage"
       :errorMessage="errorMessage"

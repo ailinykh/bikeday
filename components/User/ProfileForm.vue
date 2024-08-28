@@ -189,7 +189,7 @@ const onDelete = () => {
       <div class="mb-6">
         <label
           for="gender"
-          class="mb-2 block flex items-center text-sm font-medium text-gray-900 dark:text-white"
+          class="mb-2 flex items-center text-sm font-medium text-gray-900 dark:text-white"
         >
           Пол
         </label>
