@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IEvent, User, IParticipation } from "~/types";
+import type { IEvent, User, IParticipation } from "~/types";
 
 const props = defineProps<{
   event: IEvent;

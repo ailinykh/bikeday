@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IParticipation, User } from "~/types";
+import type { IParticipation, User } from "~/types";
 
 const props = defineProps<{
   participation: IParticipation;

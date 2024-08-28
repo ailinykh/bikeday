@@ -7,7 +7,7 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-import { User } from "~/types";
+import type { User } from "~/types";
 import { useUser } from "~/stores/user";
 
 const user = useState<User>("user");

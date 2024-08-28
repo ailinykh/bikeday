@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
-import { User } from "~/types";
+import type { User } from "~/types";
 
 const props = defineProps({
   children: Object as PropType<Array<User>>,

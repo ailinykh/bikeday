@@ -5,7 +5,7 @@ useHead({
 
 import { storeToRefs } from "pinia";
 import { useAuth } from "~/stores/auth";
-import { TelegramAuthRequest } from "~/types";
+import type { TelegramAuthRequest } from "~/types";
 
 const telegram = ref<TelegramAuthRequest | undefined>();
 const auth = useAuth();

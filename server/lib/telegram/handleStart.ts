@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { PrismaClient } from "@prisma/client";
 import { H3Event, getHeaders } from "h3";
-import { TelegramMessage } from "~/types/telegram";
+import type { TelegramMessage } from "~/types/telegram";
 
 const prisma = new PrismaClient();
 

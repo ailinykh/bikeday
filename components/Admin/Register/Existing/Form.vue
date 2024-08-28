@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { User, IParticipation } from "~/types";
+import type { User, IParticipation } from "~/types";
 
 const props = defineProps<{
   user: User;

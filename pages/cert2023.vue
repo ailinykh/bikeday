@@ -8,7 +8,7 @@ definePageMeta({
 });
 
 import { storeToRefs } from "pinia";
-import { User } from "~/types";
+import type { User } from "~/types";
 import { useParticipation } from "~/stores/participation";
 
 const user = useState<User>("user");

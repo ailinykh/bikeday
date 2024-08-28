@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { AuthRequest, User } from "~/types";
+import type { AuthRequest, User } from "~/types";
 
 type AuthState = {
   authRequest?: AuthRequest;

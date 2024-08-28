@@ -7,7 +7,7 @@ definePageMeta({
   middleware: ["volunteer"],
 });
 
-import {
+import type {
   IContest,
   IContestParticipation,
   User,

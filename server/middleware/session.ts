@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { H3Event } from "h3";
 import { PrismaClient } from "@prisma/client";
-import { TelegramUpdate } from "~/types/telegram";
+import type { TelegramUpdate } from "~/types/telegram";
 import { protectRequest } from "~/server/lib/telegram";
 
 const prisma = new PrismaClient();

@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { H3Event } from "h3";
-import { User } from "~/types";
+import type { User } from "~/types";
 import { createSession } from "~/server/lib/session";
 
 const prisma = new PrismaClient();

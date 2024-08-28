@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IContest } from "~/types";
+import type { IContest } from "~/types";
 const props = defineProps<{
   contests: IContest[];
 }>();

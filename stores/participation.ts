@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { IParticipation } from "~/types";
+import type { IParticipation } from "~/types";
 
 type Participation = IParticipation & {
   initialized: boolean;

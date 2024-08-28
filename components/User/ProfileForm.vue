@@ -2,7 +2,7 @@
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 
-import { UserProfileFull } from "~/types";
+import type { UserProfileFull } from "~/types";
 
 const props = defineProps<{
   errorMessage?: string;

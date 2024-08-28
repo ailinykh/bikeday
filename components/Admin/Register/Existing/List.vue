@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { User } from "~/types";
+import type { User } from "~/types";
 
 const props = defineProps<{
   users: User[];

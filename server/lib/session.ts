@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { H3Event } from "h3";
-import { User } from "~/types";
+import type { User } from "~/types";
 
 const { tokenSecret } = useRuntimeConfig();
 

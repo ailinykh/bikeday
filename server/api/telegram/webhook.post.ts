@@ -1,4 +1,4 @@
-import { TelegramContext } from "~/types/telegram";
+import type { TelegramContext } from "~/types/telegram";
 import {
   handleContact,
   handleStart,

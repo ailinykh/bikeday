@@ -7,7 +7,7 @@ definePageMeta({
   middleware: ["volunteer"],
 });
 
-import { IContest } from "~/types";
+import type { IContest } from "~/types";
 
 const contests = await $fetch<IContest[]>(
   "/api/admin/contests",

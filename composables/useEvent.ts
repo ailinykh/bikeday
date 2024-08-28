@@ -1,5 +1,5 @@
-import { Event } from "@prisma/client";
-import { IEvent } from "~/types";
+import type { Event } from "@prisma/client";
+import type { IEvent } from "~/types";
 
 export default async (): Promise<IEvent> => {
   const { data, error } =

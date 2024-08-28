@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // TODO: replace this form with `ProfileForm`
-import { User } from "~/types";
+import type { User } from "~/types";
 
 const props = defineProps<{
   errorMessage?: string;

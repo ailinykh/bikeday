@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
-import { TelegramAuthRequest } from "~/types";
+import type { TelegramAuthRequest } from "~/types";
 
 const props = defineProps({
   loading: {

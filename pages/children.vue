@@ -16,7 +16,7 @@ const reloadChildren = async () => {
 
 onMounted(reloadChildren);
 
-import { User, UserProfileFull } from "~/types";
+import type { User, UserProfileFull } from "~/types";
 
 const children = ref<User[]>([]);
 

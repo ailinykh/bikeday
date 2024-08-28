@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AuthRequest } from "~/types";
+import type { AuthRequest } from "~/types";
 
 const props = defineProps<{
   authRequest: AuthRequest;

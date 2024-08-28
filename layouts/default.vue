@@ -100,7 +100,7 @@
 import { onMounted } from "vue";
 import { initFlowbite } from "flowbite";
 import { useAuth } from "~/stores/auth";
-import { User } from "~/types";
+import type { User } from "~/types";
 
 const auth = useAuth();
 const user = useState<User | null>("user");

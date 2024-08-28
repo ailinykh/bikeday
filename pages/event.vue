@@ -8,7 +8,7 @@ definePageMeta({
 });
 
 import { storeToRefs } from "pinia";
-import { IContest, User } from "~/types";
+import type { IContest, User } from "~/types";
 import { useParticipation } from "~/stores/participation";
 import { useUser } from "~/stores/user";
 
