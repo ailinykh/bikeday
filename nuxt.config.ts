@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    "@nuxt/test-utils/module",
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "@nuxt/icon",

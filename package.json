@@ -1,6 +1,7 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -10,6 +11,7 @@
   },
   "devDependencies": {
     "@nuxt/icon": "^1.5.0",
+    "@nuxt/test-utils": "^3.14.1",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@pinia/nuxt": "^0.5.4",
     "@prisma/client": "^5.19.0",
@@ -17,18 +19,23 @@
     "@tailwindcss/typography": "^0.5.14",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^22.5.1",
+    "@vue/test-utils": "^2.4.6",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "@vueuse/core": "^11.0.3",
     "@vueuse/nuxt": "^11.0.3",
     "flowbite": "^2.5.1",
+    "happy-dom": "^15.0.0",
     "jsonwebtoken": "^9.0.2",
     "maska": "^3.0.2",
     "nuxt": "^3.13.0",
     "pinia": "^2.2.2",
+    "playwright-core": "^1.46.1",
     "prettier-plugin-tailwindcss": "^0.6.6",
     "prisma": "^5.19.0",
-    "sass": "^1.77.8"
+    "sass": "^1.77.8",
+    "vitest": "^2.0.5",
+    "vitest-mock-extended": "^2.0.2"
   },
   "prisma": {
     "seed": "node prisma/seed.mjs"
