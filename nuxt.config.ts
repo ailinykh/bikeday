@@ -21,12 +21,15 @@ export default defineNuxtConfig({
       password: process.env.SMSAERO_PASSWORD,
     },
   },
+
   modules: [
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "nuxt-icon",
   ],
+
   css: ["@/assets/styles/main.scss"],
+
   app: {
     head: {
       script: [
@@ -79,4 +82,6 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  compatibilityDate: "2024-08-28",
 });
