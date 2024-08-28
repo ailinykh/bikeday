@@ -1,5 +1,5 @@
 import { H3Event, getProxyRequestHeaders } from "h3";
-import prisma from "~/server/lib/prisma";
+import prisma from "~/server/libs/prisma";
 
 const TIMEOUT_LIMIT = 5 * 60_000;
 const REQUEST_LIMIT = 15;

@@ -1,5 +1,5 @@
-import { sendSmsc } from "~/server/lib/sms/center";
-import { sendSmsAero } from "~/server/lib/sms/aero";
+import { sendSmsc } from "~/server/libs/sms/center";
+import { sendSmsAero } from "~/server/libs/sms/aero";
 
 export async function sendSms({
   phone,

@@ -1,4 +1,4 @@
-import prisma from "~/server/lib/prisma";
+import prisma from "~/server/libs/prisma";
 import type { User } from "~/types";
 
 export default defineEventHandler(async (event) => {

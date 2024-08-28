@@ -1,4 +1,4 @@
-import prisma from "~/server/lib/prisma";
+import prisma from "~/server/libs/prisma";
 import { events, contests, users } from "./seed_data.mjs";
 
 async function seed() {

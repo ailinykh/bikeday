@@ -3,7 +3,7 @@ import {
   handleContact,
   handleStart,
   handleStatistics,
-} from "~/server/lib/telegram";
+} from "~/server/libs/telegram";
 
 const config = useRuntimeConfig();
 

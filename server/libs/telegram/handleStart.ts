@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { H3Event, getHeaders } from "h3";
 import type { TelegramMessage } from "~/types/telegram";
-import prisma from "~/server/lib/prisma";
+import prisma from "~/server/libs/prisma";
 
 export const handleStart = async (
   message: TelegramMessage,

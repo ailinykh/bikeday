@@ -1,4 +1,4 @@
-import prisma from "~/server/lib/prisma";
+import prisma from "~/server/libs/prisma";
 
 const TIMEOUT_LIMIT = 2 * 60_000;
 

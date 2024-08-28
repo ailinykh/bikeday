@@ -1,6 +1,6 @@
 import { H3Event } from "h3";
 import type { TelegramMessage } from "~/types/telegram";
-import prisma from "~/server/lib/prisma";
+import prisma from "~/server/libs/prisma";
 
 export const handleStatistics = async (
   message: TelegramMessage,

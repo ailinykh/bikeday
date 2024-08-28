@@ -1,7 +1,7 @@
 import { H3Event } from "h3";
-import { sendSms } from "~/server/lib/sms";
+import { sendSms } from "~/server/libs/sms";
 import protectPhone from "~/server/utils/protectPhone";
-import prisma from "~/server/lib/prisma";
+import prisma from "~/server/libs/prisma";
 
 export default defineEventHandler(
   async (event: H3Event) => {
