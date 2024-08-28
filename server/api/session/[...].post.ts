@@ -1,10 +1,8 @@
-import { PrismaClient } from "@prisma/client";
 import { H3Event } from "h3";
 import { sendSmsc } from "../../lib/smsCenter";
 import { sendSmsAero } from "../../lib/smsAero";
 import protectPhone from "../../utils/protectPhone";
-
-const prisma = new PrismaClient();
+import prisma from "~/server/lib/prisma";
 
 export default defineEventHandler(
   async (event: H3Event) => {

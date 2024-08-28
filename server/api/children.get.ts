@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "~/server/lib/prisma";
 import type { User } from "~/types";
-
-const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   const user: User = event.context.user;

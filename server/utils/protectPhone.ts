@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "~/server/lib/prisma";
 
 const TIMEOUT_LIMIT = 2 * 60_000;
 

@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "~/server/lib/prisma";
 import { events, contests, users } from "./seed_data.mjs";
-
-const prisma = new PrismaClient();
 
 async function seed() {
   for (const data of events) {

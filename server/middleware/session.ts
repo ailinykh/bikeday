@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken";
 import { H3Event } from "h3";
-import { PrismaClient } from "@prisma/client";
 import type { TelegramUpdate } from "~/types/telegram";
 import { protectRequest } from "~/server/lib/telegram";
+import prisma from "~/server/lib/prisma";
 
-const prisma = new PrismaClient();
 const config = useRuntimeConfig();
 
 const handleTelegram = async (event: H3Event) => {
