@@ -1,6 +1,8 @@
 import { H3Event } from "h3";
 import { createSession } from "~/server/libs/session";
 import prisma from "~/server/libs/prisma";
+import { first } from "~/server/libs/loginIntents";
+import { create } from "~/server/libs/loginAttempts";
 
 export default defineEventHandler(
   async (event: H3Event) => {
@@ -17,20 +19,15 @@ export default defineEventHandler(
 
     // Code have to be created less than 5 minutes ago
     const { code, phone } = body;
-    const now = new Date().getTime();
-    const timeout = new Date(now - 5 * 60_000);
-    const password = await prisma.oneTimePassword.findFirst(
-      {
-        where: {
-          provider: "phone",
-          context: phone,
-          password: code,
-          createdAt: {
-            gte: timeout,
-          },
-        },
-      },
-    );
+    const timestamp = new Date(
+      new Date().getTime() - 5 * 60_000,
+    ); // TODO: Read from runtime config
+    const password = await first({
+      provider: "phone",
+      context: phone,
+      password: code,
+      timestamp,
+    });
 
     // Authorization succeeded
     if (password) {
@@ -61,13 +58,7 @@ export default defineEventHandler(
     const userAgent = headers["user-agent"];
     const ipAddress = headers["x-forwarded-for"];
 
-    await prisma.oneTimePasswordLog.create({
-      data: {
-        password: code,
-        ipAddress,
-        userAgent,
-      },
-    });
+    await create({ password: code, ipAddress, userAgent });
 
     throw createError({
       statusCode: 403,

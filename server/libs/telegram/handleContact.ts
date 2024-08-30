@@ -1,6 +1,7 @@
 import { H3Event, getHeaders } from "h3";
 import type { TelegramMessage } from "~/types/telegram";
 import prisma from "~/server/libs/prisma";
+import { first } from "~/server/libs/loginIntents";
 
 export const handleContact = async (
   message: TelegramMessage,
@@ -49,17 +50,13 @@ export const handleContact = async (
     },
   });
 
-  const now = new Date().getTime();
-  const timeout = new Date(now - 5 * 60_000);
-  const otp = await prisma.oneTimePassword.findFirst({
-    where: {
-      provider: "telegram",
-      context: message.from.id.toString(),
-      createdAt: {
-        gte: timeout,
-      },
-    },
-    orderBy: { createdAt: "desc" },
+  const timestamp = new Date(
+    new Date().getTime() - 5 * 60_000,
+  ); // TODO: Read from runtime config
+  const otp = await first({
+    provider: "telegram",
+    context: message.from.id.toString(),
+    timestamp,
   });
 
   if (!otp || otp.password.length == 0) {

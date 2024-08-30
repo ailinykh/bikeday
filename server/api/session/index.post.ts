@@ -2,6 +2,7 @@ import { H3Event } from "h3";
 import { sendSms } from "~/server/libs/sms";
 import protectPhone from "~/server/utils/protectPhone";
 import prisma from "~/server/libs/prisma";
+import { create } from "~/server/libs/loginIntents";
 
 export default defineEventHandler(
   async (event: H3Event) => {
@@ -44,16 +45,13 @@ export default defineEventHandler(
       `creating login code ${password} for ${phone} ip: ${ipAddress}`,
     );
 
-    const { context, provider, createdAt } =
-      await prisma.oneTimePassword.create({
-        data: {
-          context: phone,
-          password,
-          provider: "phone",
-          ipAddress,
-          userAgent,
-        },
-      });
+    const { context, provider, createdAt } = await create({
+      context: phone,
+      password,
+      provider: "phone",
+      ipAddress,
+      userAgent,
+    });
 
     const bikeday = await prisma.event.findFirst({
       orderBy: { date: "desc" },

@@ -1,29 +1,20 @@
-import prisma from "~/server/libs/prisma";
+import { first } from "~/server/libs/loginIntents";
 
-const TIMEOUT_LIMIT = 2 * 60_000;
+const TIMEOUT_LIMIT = 2 * 60_000; // TODO: Read from runtime config
 
 export default async (phone: string) => {
-  const now = new Date().getTime();
-  const timeout = new Date(now - TIMEOUT_LIMIT);
-  const password = await prisma.oneTimePassword.findFirst({
-    where: {
-      provider: "phone",
-      context: phone,
-      createdAt: {
-        gte: timeout,
-      },
-    },
+  const timestamp = new Date(
+    new Date().getTime() - TIMEOUT_LIMIT,
+  );
+  const password = await first({
+    provider: "phone",
+    context: phone,
+    timestamp,
   });
   if (password) {
-    const seconds = Math.floor(
-      Math.abs(
-        password.createdAt.getTime() - timeout.getTime(),
-      ) / 1000,
-    );
     throw createError({
       statusCode: 429,
       statusMessage: "Phone request limit exceeded",
-      cause: seconds,
     });
   }
 };

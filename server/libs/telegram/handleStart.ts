@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { H3Event, getHeaders } from "h3";
 import type { TelegramMessage } from "~/types/telegram";
-import prisma from "~/server/libs/prisma";
+import { create } from "~/server/libs/loginIntents";
 
 export const handleStart = async (
   message: TelegramMessage,
@@ -10,14 +10,13 @@ export const handleStart = async (
   const password =
     message.text?.split(" ")[1] || randomUUID();
   const headers = getHeaders(event);
-  await prisma.oneTimePassword.create({
-    data: {
-      context: message.from.id.toString(),
-      password,
-      provider: "telegram",
-      ipAddress: headers["x-forwarded-for"] || "",
-      userAgent: "",
-    },
+
+  await create({
+    context: message.from.id.toString(),
+    password,
+    provider: "telegram",
+    ipAddress: headers["x-forwarded-for"] || "",
+    userAgent: "",
   });
 
   if (event.context.user) {

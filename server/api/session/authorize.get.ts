@@ -1,6 +1,11 @@
 import { H3Event, getProxyRequestHeaders } from "h3";
 import { createSession } from "~/server/libs/session";
 import prisma from "~/server/libs/prisma";
+import { first as firstIntent } from "~/server/libs/loginIntents";
+import {
+  create,
+  first as firstAttempt,
+} from "~/server/libs/loginAttempts";
 
 export default defineEventHandler(
   async (event: H3Event) => {
@@ -15,15 +20,12 @@ export default defineEventHandler(
     await protectCode(event);
 
     const password = payload.toString();
-    const now = new Date().getTime();
-    const timeout = new Date(now - 5 * 60_000);
-    const otp = await prisma.oneTimePassword.findFirst({
-      where: {
-        password,
-        createdAt: {
-          gte: timeout,
-        },
-      },
+    const timestamp = new Date(
+      new Date().getTime() - 5 * 60_000, // TODO: Read from runtime config
+    );
+    const otp = await firstIntent({
+      password,
+      timestamp,
     });
 
     if (!otp) {
@@ -31,25 +33,18 @@ export default defineEventHandler(
       const userAgent = headers["user-agent"];
       const ipAddress = headers["x-forwarded-for"];
 
-      const passwordLog =
-        await prisma.oneTimePasswordLog.findFirst({
-          where: {
-            password,
-            ipAddress,
-            createdAt: {
-              gte: timeout,
-            },
-          },
-        });
+      const attempt = await firstAttempt({
+        password,
+        ipAddress,
+        timestamp,
+      });
 
-      // Skip logging to avoid polling autoban
-      if (!passwordLog) {
-        await prisma.oneTimePasswordLog.create({
-          data: {
-            password,
-            ipAddress,
-            userAgent,
-          },
+      // Skip logging to avoid telegram polling autoban
+      if (!attempt) {
+        await create({
+          password,
+          ipAddress,
+          userAgent,
         });
       }
 

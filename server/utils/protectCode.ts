@@ -1,5 +1,5 @@
 import { H3Event, getProxyRequestHeaders } from "h3";
-import prisma from "~/server/libs/prisma";
+import { count } from "~/server/libs/loginAttempts";
 
 const TIMEOUT_LIMIT = 5 * 60_000;
 const REQUEST_LIMIT = 15;
@@ -8,16 +8,11 @@ export default async (event: H3Event) => {
   const headers = getProxyRequestHeaders(event);
   const ipAddress = headers["x-forwarded-for"];
 
-  const now = new Date();
-  const count = await prisma.oneTimePasswordLog.count({
-    where: {
-      ipAddress,
-      createdAt: {
-        gte: new Date(now.getTime() - TIMEOUT_LIMIT),
-      },
-    },
-  });
-  if (count > REQUEST_LIMIT) {
+  const timestamp = new Date(
+    new Date().getTime() - TIMEOUT_LIMIT,
+  );
+  const attempts = await count({ ipAddress, timestamp });
+  if (attempts > REQUEST_LIMIT) {
     console.warn(`Too Many Requests for ${ipAddress}`);
     throw createError({
       statusCode: 429,
