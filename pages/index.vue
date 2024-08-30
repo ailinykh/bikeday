@@ -3,7 +3,7 @@
     <div class="container mx-auto text-center">
       <section class="p-10">
         <h1 class="py-10 text-6xl font-medium">
-          Орловский {{ event.title }}
+          {{ `Орловский ${event.title}` }}
         </h1>
         <p class="my-14 text-xl">
           Десятый "Велодень" в Орле назначен на
