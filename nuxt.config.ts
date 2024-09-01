@@ -12,14 +12,18 @@ export default defineNuxtConfig({
       botToken: process.env.TELEGRAM_BOT_TOKEN,
       supportChatId: process.env.TELEGRAM_SUPPORT_CHAT_ID,
     },
-    smsc: {
-      login: process.env.SMSC_LOGIN,
-      password: process.env.SMSC_PASSWORD,
-    },
-    smsAero: {
-      login: process.env.SMSAERO_LOGIN,
-      password: process.env.SMSAERO_PASSWORD,
-    },
+    messagePublishers: [
+      {
+        name: "center",
+        login: process.env.SMSC_LOGIN,
+        password: process.env.SMSC_PASSWORD,
+      },
+      {
+        name: "aero",
+        login: process.env.SMSAERO_LOGIN,
+        password: process.env.SMSAERO_PASSWORD,
+      },
+    ],
   },
 
   modules: [

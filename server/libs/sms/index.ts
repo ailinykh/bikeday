@@ -1,29 +1,8 @@
-import { sendSmsc } from "~/server/libs/sms/center";
-import { sendSmsAero } from "~/server/libs/sms/aero";
-
-export async function sendSms({
-  phone,
-  text,
-}: {
+export interface Message {
   phone: string;
   text: string;
-}) {
-  if (import.meta.dev) {
-    console.info(
-      `🔕 skip sms in dev mode: ${phone} ${text}`,
-    );
-  } else {
-    const { error } = await sendSmsc({ phone, text });
-    if (error) {
-      if (error == "message is denied") {
-        await sendSmsAero({ phone, text });
-      } else {
-        console.log(`failed to send sms ${error}`);
-        throw createError({
-          statusCode: 500,
-          statusMessage: error,
-        });
-      }
-    }
-  }
+}
+
+export interface MessagePublisher {
+  sendSms(message: Message): Promise<Error | undefined>;
 }

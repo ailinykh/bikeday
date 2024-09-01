@@ -1,8 +1,10 @@
 import { H3Event } from "h3";
-import { sendSms } from "~/server/libs/sms";
+import { CompositeMessagePublisher } from "~/server/libs/sms/composite";
 import protectPhone from "~/server/utils/protectPhone";
 import prisma from "~/server/libs/prisma";
 import { create } from "~/server/libs/loginIntents";
+
+const messagePublisher = new CompositeMessagePublisher();
 
 export default defineEventHandler(
   async (event: H3Event) => {
@@ -69,7 +71,7 @@ export default defineEventHandler(
       bikeday.title,
     ].join("\n");
 
-    await sendSms({ phone, text });
+    await messagePublisher.sendSms({ phone, text });
 
     return { context, provider, createdAt };
   },

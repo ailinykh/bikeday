@@ -1,3 +1,8 @@
+import type {
+  Message,
+  MessagePublisher,
+} from "~/server/libs/sms";
+
 interface SMSBalanceResponse {
   balance: string;
 }
@@ -13,76 +18,84 @@ interface SMSStatusResponse {
   last_timestamp: number;
 }
 
-const { smsc } = useRuntimeConfig();
+export class CenterMessagePublisher
+  implements MessagePublisher
+{
+  common = {};
 
-const common = {
-  login: smsc.login,
-  psw: smsc.password,
-  charset: "utf-8",
-  fmt: 3,
-};
+  constructor({
+    login,
+    password,
+  }: {
+    login: string;
+    password: string;
+  }) {
+    this.common = {
+      login: login,
+      psw: password,
+      charset: "utf-8",
+      fmt: 3,
+    };
+  }
 
-const getSmscBalance = async () => {
-  return await $fetch<SMSBalanceResponse>(
-    "https://smsc.ru/sys/balance.php",
-    {
-      params: common,
-    },
-  );
-};
-
-const getSmscStatus = async ({
-  id,
-  phone,
-}: {
-  id: string;
-  phone: string;
-}) => {
-  return await $fetch<SMSStatusResponse>(
-    "https://smsc.ru/sys/status.php",
-    {
-      params: {
-        ...common,
-        phone,
-        id,
+  async getSmscBalance() {
+    return await $fetch<SMSBalanceResponse>(
+      "https://smsc.ru/sys/balance.php",
+      {
+        params: this.common,
       },
-    },
-  );
-};
+    );
+  }
 
-const sendSmsc = async ({
-  phone,
-  text,
-}: {
-  phone: string;
-  text: string;
-}) => {
-  const data = {
-    phones: phone,
-    mes: text,
-  };
-
-  const { id, cnt, error } = await $fetch<SMSSendResponse>(
-    "https://smsc.ru/sys/send.php",
-    {
-      params: {
-        ...common,
-        ...data,
-      },
-    },
-  );
-  console.info(
-    "💬 smsc",
-    phone,
-    "id:",
+  async getSmscStatus({
     id,
-    "cnt:",
-    cnt,
-    "error:",
-    error,
-  );
+    phone,
+  }: {
+    id: string;
+    phone: string;
+  }) {
+    return await $fetch<SMSStatusResponse>(
+      "https://smsc.ru/sys/status.php",
+      {
+        params: {
+          ...this.common,
+          phone,
+          id,
+        },
+      },
+    );
+  }
 
-  return { cnt, error };
-};
+  async sendSms({
+    phone,
+    text,
+  }: Message): Promise<Error | undefined> {
+    const data = {
+      phones: phone,
+      mes: text,
+    };
 
-export { sendSmsc, getSmscBalance, getSmscStatus };
+    const { id, cnt, error } =
+      await $fetch<SMSSendResponse>(
+        "https://smsc.ru/sys/send.php",
+        {
+          params: {
+            ...this.common,
+            ...data,
+          },
+        },
+      );
+    console.info(
+      "💬 smsc",
+      phone,
+      "id:",
+      id,
+      "cnt:",
+      cnt,
+      "error:",
+      error,
+    );
+
+    return error ? Error(error) : undefined;
+  }
+}
