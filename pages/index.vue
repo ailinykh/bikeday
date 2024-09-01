@@ -1,60 +1,3 @@
-<template>
-  <div class="bikeday-bg-white">
-    <div class="container mx-auto text-center">
-      <section class="p-10">
-        <h1 class="py-10 text-6xl font-medium">
-          {{ `Орловский ${event.title}` }}
-        </h1>
-        <p class="my-14 text-xl">
-          Десятый "Велодень" в Орле назначен на
-          <!-- TODO: event.date -->
-          <strong class="text-rose-600">24 сентября</strong>
-        </p>
-        <p class="my-8 text-lg">Подробности чуть позже</p>
-        <NuxtLink
-          v-if="user"
-          to="/event"
-          :hidden="0"
-          class="rounded-none bg-green-600 px-5 py-3 font-medium text-white"
-        >
-          Личный кабинет
-        </NuxtLink>
-        <NuxtLink
-          v-else
-          to="/login"
-          :hidden="0"
-          class="rounded-none bg-green-600 px-5 py-3 font-medium text-white"
-        >
-          Регистрация
-        </NuxtLink>
-      </section>
-      <section class="my-5 p-5">
-        <h2 class="py-10 text-5xl font-medium">
-          Велодню помогают
-        </h2>
-        <div
-          :class="`grid grid-cols-3 gap-4`"
-          v-for="row in sponsors"
-        >
-          <div
-            :class="
-              i == 0 ? `col-start-${3 % row.length}` : 0
-            "
-            v-for="(s, i) in row"
-          >
-            <NuxtLink :href="s.url" target="_blank"
-              ><img
-                class="d-block max-width-md mx-auto mb-4"
-                :src="s.imageUrl"
-                :alt="s.title"
-            /></NuxtLink>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 definePageMeta({
   layout: "custom",
@@ -62,6 +5,16 @@ definePageMeta({
 
 const event = await useEvent();
 const user = useState("user");
+
+const date = new Intl.DateTimeFormat("ru-RU", {
+  dateStyle: "long",
+  timeStyle: "short",
+  timeZone: "Europe/Moscow",
+})
+  .format(new Date(event.date))
+  .split(" ")
+  .slice(0, 2)
+  .join(" ");
 
 const sponsors = [
   [
@@ -135,3 +88,58 @@ const sponsors = [
   ],
 ];
 </script>
+<template>
+  <div class="bikeday-bg-white">
+    <div class="container mx-auto text-center">
+      <section class="p-10">
+        <h1 class="py-10 text-6xl font-medium">
+          {{ `Орловский ${event.title}` }}
+        </h1>
+        <p class="my-14 text-xl">
+          Десятый "Велодень" в Орле назначен на
+          <strong class="text-rose-600">{{ date }}</strong>
+        </p>
+        <p class="my-8 text-lg">Подробности чуть позже</p>
+        <NuxtLink
+          v-if="user"
+          to="/event"
+          :hidden="0"
+          class="rounded-none bg-green-600 px-5 py-3 font-medium text-white"
+        >
+          Личный кабинет
+        </NuxtLink>
+        <NuxtLink
+          v-else
+          to="/login"
+          :hidden="0"
+          class="rounded-none bg-green-600 px-5 py-3 font-medium text-white"
+        >
+          Регистрация
+        </NuxtLink>
+      </section>
+      <section class="my-5 p-5">
+        <h2 class="py-10 text-5xl font-medium">
+          Велодню помогают
+        </h2>
+        <div
+          :class="`grid grid-cols-3 gap-4`"
+          v-for="row in sponsors"
+        >
+          <div
+            :class="
+              i == 0 ? `col-start-${3 % row.length}` : 0
+            "
+            v-for="(s, i) in row"
+          >
+            <NuxtLink :href="s.url" target="_blank"
+              ><img
+                class="d-block max-width-md mx-auto mb-4"
+                :src="s.imageUrl"
+                :alt="s.title"
+            /></NuxtLink>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</template>
