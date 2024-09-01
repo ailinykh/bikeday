@@ -10,45 +10,47 @@ export default defineEventHandler(
   async (event: H3Event) => {
     await protectIpAddress(event);
 
-    const body = await readBody(event);
+    const { phone } = await readBody(event);
 
-    if (!body.phone) {
+    if (!phone) {
       throw createError({
         statusCode: 400,
         statusMessage: "Phone not specified",
       });
     }
 
-    const phone = body.phone.replace(/\D+/g, "");
+    const normalized = phone.replace(/\D+/g, "");
 
-    if (phone.length != 11) {
+    if (normalized.length != 11) {
       throw createError({
         statusCode: 400,
         statusMessage: "Insufficient digits",
       });
     }
 
-    if (!phone.startsWith("79")) {
+    if (!normalized.startsWith("79")) {
       throw createError({
         statusCode: 400,
         statusMessage: "Unexpected phone format",
       });
     }
 
-    await protectPhone(phone);
+    await protectPhone(normalized);
 
     const headers = getProxyRequestHeaders(event);
+
     const userAgent = headers["user-agent"].slice(191);
-    const ipAddress = headers["x-forwarded-for"];
+    const ipAddress =
+      headers["x-forwarded-for"] ?? "127.0.0.1";
     const password = Math.floor(
       100000 + Math.random() * 900000,
     ).toString();
     console.info(
-      `creating login code ${password} for ${phone} ip: ${ipAddress}`,
+      `creating login code ${password} for ${normalized} ip: ${ipAddress}`,
     );
 
     const { context, provider, createdAt } = await create({
-      context: phone,
+      context: normalized,
       password,
       provider: "phone",
       ipAddress,
