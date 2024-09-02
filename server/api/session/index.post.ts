@@ -8,7 +8,11 @@ const messagePublisher = new CompositeMessagePublisher();
 
 export default defineEventHandler(
   async (event: H3Event) => {
-    await protectIpAddress(event);
+    const headers = getProxyRequestHeaders(event);
+    const ipAddress =
+      headers["x-forwarded-for"] ?? "127.0.0.1";
+
+    await protectIpAddress(ipAddress);
 
     const { phone } = await readBody(event);
 
@@ -37,11 +41,7 @@ export default defineEventHandler(
 
     await protectPhone(normalized);
 
-    const headers = getProxyRequestHeaders(event);
-
     const userAgent = headers["user-agent"].slice(191);
-    const ipAddress =
-      headers["x-forwarded-for"] ?? "127.0.0.1";
     const password = Math.floor(
       100000 + Math.random() * 900000,
     ).toString();
@@ -73,7 +73,16 @@ export default defineEventHandler(
       bikeday.title,
     ].join("\n");
 
-    await messagePublisher.sendSms({ phone, text });
+    const error = await messagePublisher.sendSms({
+      phone,
+      text,
+    });
+    if (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: error.message,
+      });
+    }
 
     return { context, provider, createdAt };
   },
