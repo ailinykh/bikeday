@@ -5,8 +5,8 @@ import { required } from "@vuelidate/validators";
 import type { UserProfileFull } from "~/types";
 
 const props = defineProps<{
-  errorMessage?: string;
-  successMessage?: string;
+  message?: string;
+  error: boolean;
   loading: boolean;
   profile: UserProfileFull;
   showDelete: boolean;
@@ -246,16 +246,11 @@ const onDelete = () => {
           </p>
         </span>
         <p
-          v-if="props.successMessage"
-          class="mt-2 text-sm font-medium text-green-600 dark:text-green-500"
+          v-if="props.message"
+          class="mt-2 text-sm font-medium"
+          :class="`text-${error ? 'red' : 'green'}-600 dark:text-${error ? 'red' : 'green'}-500`"
         >
-          {{ props.successMessage }}
-        </p>
-        <p
-          v-if="props.errorMessage"
-          class="mt-2 text-sm font-medium text-red-600 dark:text-red-500"
-        >
-          {{ props.errorMessage }}
+          {{ props.message }}
         </p>
       </div>
       <div class="flex justify-between">

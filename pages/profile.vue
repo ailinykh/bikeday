@@ -8,33 +8,52 @@ definePageMeta({
 });
 
 import type { User, UserProfileFull } from "~/types";
-import { useUser } from "~/stores/user";
 
-const user = useState<User>("user");
-const userStore = useUser();
+async function useProfile(id: Number) {
+  const isLoading = ref(false);
+  const isError = ref(false);
+  const message = ref("");
 
-const loading = ref(false);
-const errorMessage = ref<string | undefined>();
-const successMessage = ref<string | undefined>();
+  const { data: profile } = await useFetch<UserProfileFull>(
+    `/api/user/${id}`,
+  );
 
-const submitProfile = async (data: UserProfileFull) => {
-  loading.value = true;
-  successMessage.value = undefined;
-  errorMessage.value = undefined;
+  const updateProfile = async (
+    profile: UserProfileFull,
+  ) => {
+    isLoading.value = true;
 
-  try {
-    await userStore.update({
-      ...data,
-      id: user.value.id,
-    });
-    successMessage.value = "Данные успешно обновлены";
-  } catch (error) {
-    errorMessage.value = `${error}`;
-    successMessage.value = undefined;
-  }
+    try {
+      await $fetch<User>(`/api/user/${id}`, {
+        method: "PUT",
+        body: profile,
+      });
+      isError.value = false;
+      message.value = "Данные успешно обновлены";
+    } catch (e) {
+      isError.value = true;
+      message.value = `${e}`;
+    }
+    isLoading.value = false;
+  };
 
-  loading.value = false;
-};
+  return {
+    profile,
+    updateProfile,
+    isLoading,
+    isError,
+    message,
+  };
+}
+
+const { id } = useState<User>("user").value;
+const {
+  profile,
+  updateProfile,
+  isLoading,
+  isError,
+  message,
+} = await useProfile(id);
 </script>
 
 <template>
@@ -45,16 +64,12 @@ const submitProfile = async (data: UserProfileFull) => {
       Профиль
     </h2>
     <UserProfileForm
-      :profile="{
-        ...user,
-        birthday: user.birthday ?? '',
-        gender: user.gender ?? '',
-      }"
-      :loading="loading"
-      :successMessage="successMessage"
-      :errorMessage="errorMessage"
+      :profile="profile!"
+      :loading="isLoading"
+      :message="message"
+      :error="isError"
       :showDelete="false"
-      @form:submit="submitProfile"
+      @form:submit="updateProfile"
     />
     <a
       href="/children"
