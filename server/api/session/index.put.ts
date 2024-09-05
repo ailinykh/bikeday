@@ -6,11 +6,16 @@ import { create } from "~/server/libs/loginAttempts";
 
 export default defineEventHandler(
   async (event: H3Event) => {
-    await protectCode(event);
+    const headers = getProxyRequestHeaders(event);
+    const userAgent = headers["user-agent"];
+    const ipAddress =
+      headers["x-forwarded-for"] ?? "127.0.0.1";
 
-    const body = await readBody(event);
+    await protectCode(ipAddress);
 
-    if (!body.code || !body.phone) {
+    const { code, phone } = await readBody(event);
+
+    if (!code || !phone) {
       throw createError({
         statusCode: 400,
         statusMessage: "Bad request",
@@ -18,7 +23,6 @@ export default defineEventHandler(
     }
 
     // Code have to be created less than 5 minutes ago
-    const { code, phone } = body;
     const timestamp = new Date(
       new Date().getTime() - 5 * 60_000,
     ); // TODO: Read from runtime config
@@ -29,40 +33,40 @@ export default defineEventHandler(
       timestamp,
     });
 
-    // Authorization succeeded
-    if (password) {
-      let user = await prisma.user.findFirst({
-        where: {
-          phone: password.context,
-        },
+    if (!password) {
+      // Code invalid or expired
+      await create({
+        password: code,
+        ipAddress,
+        userAgent,
       });
 
-      if (!user) {
-        user = await prisma.user.create({
-          data: {
-            phone: password.context,
-            status: "user",
-            firstName: "",
-            lastName: "",
-          },
-        });
-      }
-
-      createSession(event, user);
-
-      return user;
+      throw createError({
+        statusCode: 403,
+        statusMessage: "Code invalid or expired",
+      });
     }
 
-    // Code invalid or expired
-    const headers = getProxyRequestHeaders(event);
-    const userAgent = headers["user-agent"];
-    const ipAddress = headers["x-forwarded-for"];
-
-    await create({ password: code, ipAddress, userAgent });
-
-    throw createError({
-      statusCode: 403,
-      statusMessage: "Code invalid or expired",
+    // Authorization succeeded
+    let user = await prisma.user.findFirst({
+      where: {
+        phone: password.context,
+      },
     });
+
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          phone: password.context,
+          status: "user",
+          firstName: "",
+          lastName: "",
+        },
+      });
+    }
+
+    createSession(event, user);
+
+    return user;
   },
 );
