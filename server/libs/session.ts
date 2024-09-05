@@ -4,14 +4,10 @@ import type { User } from "~/types";
 
 const { tokenSecret } = useRuntimeConfig();
 
-export const createSession = (
-  event: H3Event,
-  user: User,
-) => {
+export const createToken = (user: User): string => {
   if (tokenSecret.length == 0) {
     console.error("❌ secret token is empty");
   }
-
   const {
     id,
     phone,
@@ -21,7 +17,7 @@ export const createSession = (
     birthday,
     gender,
   } = user;
-  const token = jwt.sign(
+  return jwt.sign(
     {
       id,
       phone,
@@ -36,8 +32,14 @@ export const createSession = (
       expiresIn: 86400 * 60,
     },
   );
-  setCookie(event, "__session", token);
-  setCookie(event, "user_id", id.toString());
+};
+
+export const createSession = (
+  event: H3Event,
+  user: User,
+) => {
+  setCookie(event, "__session", createToken(user));
+  setCookie(event, "user_id", user.id.toString());
 };
 
 export const destroySession = (event: H3Event) => {
