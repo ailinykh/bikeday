@@ -6,6 +6,10 @@ import { create } from "~/server/libs/loginAttempts";
 
 export default defineEventHandler(
   async (event: H3Event) => {
+    if (event.context.user) {
+      return sendRedirect(event, "/");
+    }
+
     const headers = getProxyRequestHeaders(event);
     const userAgent = headers["user-agent"];
     const ipAddress =
