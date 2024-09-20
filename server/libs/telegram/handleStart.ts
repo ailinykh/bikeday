@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { H3Event, getHeaders } from "h3";
-import type { TelegramMessage } from "~/types/telegram";
-import { create } from "~/server/libs/loginIntents";
+import type { TelegramMessage } from "~~/types/telegram";
+import { create } from "~~/server/libs/loginIntents";
 
 export const handleStart = async (
   message: TelegramMessage,

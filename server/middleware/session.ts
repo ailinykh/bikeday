@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import { H3Event } from "h3";
-import type { TelegramUpdate } from "~/types/telegram";
-import { protectRequest } from "~/server/libs/telegram";
-import prisma from "~/server/libs/prisma";
+import type { TelegramUpdate } from "~~/types/telegram";
+import { protectRequest } from "~~/server/libs/telegram";
+import prisma from "~~/server/libs/prisma";
 
 const config = useRuntimeConfig();
 

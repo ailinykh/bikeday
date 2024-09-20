@@ -1,8 +1,8 @@
 import { H3Event } from "h3";
-import { createSession } from "~/server/libs/session";
-import prisma from "~/server/libs/prisma";
-import { first } from "~/server/libs/loginIntents";
-import { create } from "~/server/libs/loginAttempts";
+import { createSession } from "~~/server/libs/session";
+import prisma from "~~/server/libs/prisma";
+import { first } from "~~/server/libs/loginIntents";
+import { create } from "~~/server/libs/loginAttempts";
 
 export default defineEventHandler(
   async (event: H3Event) => {

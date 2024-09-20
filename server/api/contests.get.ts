@@ -1,4 +1,4 @@
-import prisma from "~/server/libs/prisma";
+import prisma from "~~/server/libs/prisma";
 
 export default defineEventHandler(async (event) => {
   protectRoute(event);

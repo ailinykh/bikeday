@@ -1,9 +1,9 @@
-import type { TelegramContext } from "~/types/telegram";
+import type { TelegramContext } from "~~/types/telegram";
 import {
   handleContact,
   handleStart,
   handleStatistics,
-} from "~/server/libs/telegram";
+} from "~~/server/libs/telegram";
 
 const config = useRuntimeConfig();
 

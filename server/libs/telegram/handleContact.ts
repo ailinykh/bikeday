@@ -1,7 +1,7 @@
 import { H3Event, getHeaders } from "h3";
-import type { TelegramMessage } from "~/types/telegram";
-import prisma from "~/server/libs/prisma";
-import { first } from "~/server/libs/loginIntents";
+import type { TelegramMessage } from "~~/types/telegram";
+import prisma from "~~/server/libs/prisma";
+import { first } from "~~/server/libs/loginIntents";
 
 export const handleContact = async (
   message: TelegramMessage,

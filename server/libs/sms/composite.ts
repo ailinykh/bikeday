@@ -1,10 +1,10 @@
 import type {
   Message,
   MessagePublisher,
-} from "~/server/libs/sms";
+} from "~~/server/libs/sms";
 
-import { CenterMessagePublisher } from "~/server/libs/sms/center";
-import { AeroMessagePublisher } from "~/server/libs/sms/aero";
+import { CenterMessagePublisher } from "~~/server/libs/sms/center";
+import { AeroMessagePublisher } from "~~/server/libs/sms/aero";
 
 const { messagePublishers } = useRuntimeConfig();
 

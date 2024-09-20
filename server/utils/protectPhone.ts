@@ -1,4 +1,4 @@
-import { first } from "~/server/libs/loginIntents";
+import { first } from "~~/server/libs/loginIntents";
 
 const TIMEOUT_LIMIT = 2 * 60_000; // TODO: Read from runtime config
 

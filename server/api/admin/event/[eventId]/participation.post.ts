@@ -1,5 +1,5 @@
 import { H3Event } from "h3";
-import prisma from "~/server/libs/prisma";
+import prisma from "~~/server/libs/prisma";
 
 export default defineEventHandler(
   async (event: H3Event) => {

@@ -1,11 +1,11 @@
 import { H3Event, getProxyRequestHeaders } from "h3";
-import { createSession } from "~/server/libs/session";
-import prisma from "~/server/libs/prisma";
-import { first as firstIntent } from "~/server/libs/loginIntents";
+import { createSession } from "~~/server/libs/session";
+import prisma from "~~/server/libs/prisma";
+import { first as firstIntent } from "~~/server/libs/loginIntents";
 import {
   create,
   first as firstAttempt,
-} from "~/server/libs/loginAttempts";
+} from "~~/server/libs/loginAttempts";
 
 export default defineEventHandler(
   async (event: H3Event) => {

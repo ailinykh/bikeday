@@ -1,7 +1,7 @@
 import type {
   Message,
   MessagePublisher,
-} from "~/server/libs/sms";
+} from "~~/server/libs/sms";
 
 interface SMSResponse {
   success: boolean;

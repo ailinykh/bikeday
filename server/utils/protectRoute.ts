@@ -1,5 +1,5 @@
 import { H3Event } from "h3";
-import type { User } from "~/types";
+import type { User } from "~~/types";
 
 export default (
   event: H3Event,

@@ -1,4 +1,4 @@
-import { count } from "~/server/libs/loginIntents";
+import { count } from "~~/server/libs/loginIntents";
 
 const TIMEOUT_LIMIT = 5 * 60_000;
 const REQUEST_LIMIT = 10;

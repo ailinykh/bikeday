@@ -1,6 +1,6 @@
 import { H3Event } from "h3";
-import type { User } from "~/types";
-import prisma from "~/server/libs/prisma";
+import type { User } from "~~/types";
+import prisma from "~~/server/libs/prisma";
 
 export default defineEventHandler(
   async (event: H3Event) => {
