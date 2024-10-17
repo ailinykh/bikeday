@@ -3,5 +3,10 @@ import { defineVitestConfig } from "@nuxt/test-utils/config";
 export default defineVitestConfig({
   test: {
     environment: "nuxt",
+    reporters: ["verbose"],
+    coverage: {
+      reporter: ["text", "json-summary", "json"],
+      reportOnFailure: true,
+    },
   },
 });

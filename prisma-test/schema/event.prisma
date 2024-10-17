@@ -1,0 +1,24 @@
+model Event {
+    id                   Int                    @id @default(autoincrement())
+    title                String
+    date                 DateTime
+    createdAt            DateTime               @default(now())
+    updatedAt            DateTime               @updatedAt
+    EventParticipation   EventParticipation[]
+    ContestParticipation ContestParticipation[]
+}
+
+model EventParticipation {
+    event     Event    @relation(fields: [eventId], references: [id])
+    user      User     @relation(fields: [userId], references: [id])
+    eventId   Int
+    userId    Int
+    district  String
+    bike      String
+    band      String?
+    bandBy    Int?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([eventId, userId])
+}

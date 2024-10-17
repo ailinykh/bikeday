@@ -1,0 +1,21 @@
+version: "3.1"
+services:
+  db:
+    image: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: nhapCIbZ30yq
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      - db
+
+volumes:
+  mysql-data:
